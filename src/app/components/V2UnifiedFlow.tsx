@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { PERSONA, RECRUITMENT_DATA } from '../data';
 import { SidekickIcon } from './SidekickIcon';
+import { AICentricIconRail, AICentricSidebar } from './AICentricNav';
 
 const ff = 'Figtree, sans-serif';
 const fp = 'Poppins, sans-serif';
@@ -320,51 +321,28 @@ export function V2UnifiedFlow() {
       {/* BODY */}
       <div style={{ flex: 1, display: 'flex', overflow: 'hidden', position: 'relative' }}>
 
-        {/* ICON RAIL */}
+        {/* ICON RAIL — AI-Centric Navigation */}
         {showSidebar && (
-          <motion.div initial={{ width: 0, opacity: 0 }} animate={{ width: 48, opacity: 1 }} transition={{ duration: 0.4 }}
-            style={{ background: '#fff', borderRight: '1px solid var(--ui-background-color)', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 8, gap: 2, flexShrink: 0, justifyContent: 'space-between', paddingBottom: 16, zIndex: 10 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-              {ICON_RAIL.map((item, i) => (
-                <div key={item.label} style={{ width: 36, height: 36, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', color: i === 0 ? 'var(--primary-color)' : 'var(--secondary-text-color)', background: i === 0 ? 'var(--nav-active-bg)' : 'transparent' }}>{item.icon}</div>
-              ))}
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-              <div style={{ width: 36, height: 36, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--secondary-text-color)' }}><MoreHorizontal size={18} /></div>
-              <div style={{ width: 34, height: 34, borderRadius: 7, background: 'var(--primary-text-color)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Plus size={16} color="#fff" /></div>
-            </div>
+          <motion.div initial={{ width: 0, opacity: 0 }} animate={{ width: 52, opacity: 1 }} transition={{ duration: 0.4 }}
+            style={{ flexShrink: 0, zIndex: 10, overflow: 'hidden' }}>
+            <AICentricIconRail animate />
           </motion.div>
         )}
 
         {/* SIDEBAR */}
         {showSidebar && (
           <RainbowHighlight active={phase === 'r-sidebar'} style={{ flexShrink: 0, zIndex: phase === 'r-sidebar' ? 25 : 10 }}>
-            <motion.div initial={{ width: 0, opacity: 0 }} animate={{ width: 220, opacity: 1 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              style={{ background: '#fff', borderRight: '1px solid var(--layout-border-color)', padding: '12px 8px', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: 8, height: '100%' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 4px' }}>
-                <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--secondary-text-color)' }}>Workspaces</span><MoreHorizontal size={14} color="var(--secondary-text-color)" />
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 6px', background: '#F6F7FB', borderRadius: 6 }}>
-                <div style={{ width: 20, height: 20, borderRadius: 4, background: '#7B68EE', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff' }}>N</div>
-                <span style={{ fontSize: 12, fontWeight: 500 }}>Novella</span><ChevronDown size={12} color="var(--secondary-text-color)" style={{ marginLeft: 'auto' }} />
-              </div>
-              <div style={{ paddingTop: 4 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 6px', marginBottom: 2 }}><Bot size={13} color="var(--agent-green)" /><span style={{ fontSize: 12, fontWeight: 600 }}>Agents</span></div>
-                {SIDEBAR_AGENTS.map((a, i) => (
-                  <motion.div key={a.name} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 + i * 0.1 }}
-                    style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 6px 4px 16px', borderRadius: 4, marginBottom: 1 }}>
-                    <span style={{ fontSize: 12 }}>{a.emoji}</span><span style={{ fontSize: 12 }}>{a.name}</span>
-                  </motion.div>
-                ))}
-              </div>
-              <div style={{ borderTop: '1px solid var(--layout-border-color)', paddingTop: 8 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 6px', marginBottom: 2 }}><ChevronDown size={12} color="var(--secondary-text-color)" /><span style={{ fontSize: 12, fontWeight: 600 }}>HR Department</span></div>
-                {['Recruitment Pipeline', 'Employee Onboarding', 'Team Directory'].map((b, i) => (
-                  <div key={b} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '3px 6px 3px 14px', borderRadius: 4, marginBottom: 1, background: i === 0 ? 'var(--primary-surface-color)' : 'transparent' }}>
-                    <span style={{ fontSize: 12, color: i === 0 ? 'var(--primary-color)' : 'var(--primary-text-color)', fontWeight: i === 0 ? 600 : 400 }}>{b}</span>
-                  </div>
-                ))}
-              </div>
+            <motion.div initial={{ width: 0, opacity: 0 }} animate={{ width: 230, opacity: 1 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              style={{ overflow: 'hidden', height: '100%' }}>
+              <AICentricSidebar
+                animate
+                agents={SIDEBAR_AGENTS}
+                boards={[
+                  { name: 'Recruitment Pipeline', active: true },
+                  { name: 'Employee Onboarding' },
+                  { name: 'Team Directory' },
+                ]}
+              />
             </motion.div>
           </RainbowHighlight>
         )}
