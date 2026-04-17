@@ -1,0 +1,166 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Primary actions */
+  --primary-color: #0073EA;
+  --primary-hover-color: #0060C0;
+  --primary-active-color: #004FA3;
+
+  /* Backgrounds */
+  --primary-background-color: #FFFFFF;
+  --secondary-background-color: #FFFFFF;
+  --primary-background-hover-color: rgba(103, 104, 121, 0.1);
+  --primary-surface-color: #EDF1FC;
+  --preview-background-color: #F0F2F8;
+  --nav-active-bg: rgba(204, 228, 255, 0.6);
+
+  /* Text */
+  --primary-text-color: #323338;
+  --secondary-text-color: #676879;
+  --placeholder-color: #676879;
+  --text-color-on-inverted: #FFFFFF;
+  --fixed-light-color: #FFFFFF;
+  --disabled-text-color: rgba(50, 51, 56, 0.38);
+
+  /* Borders */
+  --ui-border-color: #C3C6D4;
+  --layout-border-color: #D0D4E4;
+  --ui-background-color: #E7E9EF;
+
+  /* Semantic */
+  --disabled-background-color: #ECEDF5;
+
+  /* Brand */
+  --brand-red: #FB275D;
+  --brand-yellow: #FFCC00;
+  --brand-green: #00CA72;
+
+  /* Links & accents */
+  --link-color: #1F76C2;
+  --ai-purple: #8181FF;
+
+  /* Agent avatars */
+  --agent-green: #00C875;
+  --agent-orange: #E44B23;
+  --agent-purple: #784BD1;
+
+  /* Board group accents */
+  --board-screening: #579BFC;
+  --board-interviews: #00C875;
+  --board-offers: #FDAB3D;
+  --board-rejected: #E2445C;
+
+  /* Status colors */
+  --status-new: #C4C4C4;
+  --status-screening: #579BFC;
+  --status-interview: #00C875;
+  --status-offer: #FDAB3D;
+  --status-hired: #037F4C;
+  --status-rejected: #E2445C;
+
+  /* Spacing scale */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-64: 64px;
+
+  /* Border radius */
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 12px;
+  --border-radius-xl: 16px;
+
+  /* Tailwind-compatible semantic tokens */
+  --background: rgba(255, 255, 255, 1.00);
+  --foreground: rgba(50, 51, 56, 1.00);
+  --card: rgba(255, 255, 255, 1.00);
+  --card-foreground: rgba(50, 51, 56, 1.00);
+  --popover: rgba(255, 255, 255, 1.00);
+  --popover-foreground: rgba(50, 51, 56, 1.00);
+  --primary: rgba(0, 115, 234, 1.00);
+  --primary-foreground: rgba(255, 255, 255, 1.00);
+  --secondary: rgba(236, 239, 248, 1.00);
+  --secondary-foreground: rgba(50, 51, 56, 1.00);
+  --muted: rgba(236, 237, 245, 1.00);
+  --muted-foreground: rgba(103, 104, 121, 1.00);
+  --accent: rgba(204, 228, 255, 1.00);
+  --accent-foreground: rgba(50, 51, 56, 1.00);
+  --destructive: rgba(216, 58, 82, 1.00);
+  --destructive-foreground: rgba(255, 255, 255, 1.00);
+  --border: rgba(195, 198, 212, 1.00);
+  --input: rgba(255, 255, 255, 1.00);
+  --input-background: rgba(255, 255, 255, 1.00);
+  --ring: rgba(0, 115, 234, 1.00);
+  --elevation-sm: 0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+  --radius: 4px;
+  --sidebar: rgba(246, 247, 251, 1.00);
+  --sidebar-foreground: rgba(50, 51, 56, 1.00);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-ring: var(--ring);
+  --elevation-sm: var(--elevation-sm);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+h1 { font-family: 'Poppins', sans-serif; font-size: 32px; font-weight: var(--font-weight-medium); line-height: 1.5; }
+h2 { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: var(--font-weight-bold); line-height: 1.5; }
+h3 { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: var(--font-weight-medium); line-height: 1.5; }
+p, span, label, button, input {
+  font-family: 'Figtree', sans-serif;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+}
+html { font-size: var(--font-size); font-family: 'Figtree', sans-serif; }
