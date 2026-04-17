@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { PERSONA, RECRUITMENT_DATA } from '../data';
 import { SidekickIcon } from './SidekickIcon';
-import { AICentricIconRail, AICentricSidebar } from './AICentricNav';
+import { AICentricIconRail, AICentricSidebar, AICentricTopBar } from './AICentricNav';
 
 const ff = 'Figtree, sans-serif';
 const fp = 'Poppins, sans-serif';
@@ -288,34 +288,15 @@ export function V2UnifiedFlow() {
         )}
       </AnimatePresence>
 
-      {/* TOP BAR */}
+      {/* TOP BAR — light, matching AIWorkPlatform_Design */}
       {showTopBar ? (
         <RainbowHighlight active={phase === 'r-topbar'} style={{ zIndex: 20, flexShrink: 0 }}>
-          <motion.div initial={{ y: -48, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            style={{ height: 44, background: '#292F4C', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="5" cy="16" r="2.5" fill="#FB275D"/><circle cx="12" cy="16" r="2.5" fill="#FFCC00"/><circle cx="19" cy="16" r="2.5" fill="#00CA72"/><ellipse cx="5" cy="8" rx="2" ry="4.5" fill="#FB275D" transform="rotate(-8 5 8)"/><ellipse cx="12" cy="8" rx="2" ry="4.5" fill="#FFCC00"/><ellipse cx="19" cy="8" rx="2" ry="4.5" fill="#00CA72" transform="rotate(8 19 8)"/></svg>
-              <span style={{ fontFamily: fp, fontWeight: 600, fontSize: 14, color: '#fff' }}>monday</span>
-              <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>work management</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.1)', borderRadius: 6, padding: '5px 14px', width: 200 }}>
-                <Search size={13} color="rgba(255,255,255,0.5)" /><span style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>Search</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 5, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 6, padding: '4px 12px' }}>
-                <AiGradientIcon size={14} id="skBtnV2" /><span style={{ fontSize: 12, fontWeight: 500, color: '#fff' }}>AI Sidekick</span>
-              </div>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <Bell size={16} color="rgba(255,255,255,0.6)" /><MessageSquare size={16} color="rgba(255,255,255,0.6)" /><HelpCircle size={16} color="rgba(255,255,255,0.6)" />
-              <div style={{ width: 28, height: 28, borderRadius: '50%', background: PERSONA.teamMembers[0].color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#fff' }}>{PERSONA.teamMembers[0].initials}</div>
-            </div>
+          <motion.div initial={{ y: -48, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
+            <AICentricTopBar userName={PERSONA.teamMembers[0].initials} userColor={PERSONA.teamMembers[0].color} />
           </motion.div>
         </RainbowHighlight>
       ) : (
-        <div style={{ height: 44, flexShrink: 0, display: 'flex', alignItems: 'center', padding: '0 16px', borderBottom: '1px solid var(--ui-background-color)', background: '#fff' }}>
-          <AiGradientIcon size={20} id="tb0v2" /><span style={{ fontFamily: fp, fontWeight: 600, fontSize: 15, color: 'var(--primary-text-color)', marginLeft: 6 }}>monday</span>
-        </div>
+        <AICentricTopBar userName={PERSONA.teamMembers[0].initials} userColor={PERSONA.teamMembers[0].color} />
       )}
 
       {/* BODY */}
@@ -338,9 +319,12 @@ export function V2UnifiedFlow() {
                 animate
                 agents={SIDEBAR_AGENTS}
                 boards={[
-                  { name: 'Recruitment Pipeline', active: true },
-                  { name: 'Employee Onboarding' },
-                  { name: 'Team Directory' },
+                  { name: 'Recruitment Pipeline', active: true, color: '#579BFC' },
+                  { name: 'Interview tracker', indent: true },
+                  { name: 'Candidate feedback', indent: true },
+                  { name: 'Employee Onboarding', color: '#00C875' },
+                  { name: 'Team Directory', color: '#FDAB3D' },
+                  { name: 'Benefits & Compensation', color: '#784BD1' },
                 ]}
               />
             </motion.div>
