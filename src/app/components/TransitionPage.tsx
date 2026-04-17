@@ -145,11 +145,25 @@ export function TransitionPage() {
     if (timers[phase]) { const t = setTimeout(() => setPhase(next[phase]), timers[phase]); return () => clearTimeout(t); }
   }, [phase]);
 
-  const skMessages: Record<string, string> = {
-    'r-sidekick': `This is my new home — right here on the right side, always available for you. Whenever you need help, ideas, or want to run an agent, I'm one click away. Let's keep going.`,
-    'r-topbar': `Notice the new header — monday is now the AI work platform. Same product you love, now with AI built into everything.`,
-    'r-board': `Your Recruitment Pipeline is loaded with all your data. Same board, same structure — but now AI-powered, with agents ready to help you manage candidates faster.`,
-    'r-sidebar': `On your left — your workspace with all your boards, plus something new: your AI Agents. I've already created a Screening Agent, Scheduling Agent, and Sourcing Agent tailored to your hiring workflow.`,
+  // Streaming messages for Sidekick panel — each starts when its phase begins
+  const skStream1 = useStreamText(
+    "This is my new home — right here on the right side, always available for you. Whenever you need help, ideas, or want to run an agent, I'm one click away. Let's keep going.",
+    34, 500, atOrPast('r-sidekick'), pastPhase('r-sidekick'),
+  );
+  const skStream2 = useStreamText(
+    "Notice the new header — monday is now the AI work platform. Same product you love, now with AI built into everything.",
+    34, 500, atOrPast('r-topbar'), pastPhase('r-topbar'),
+  );
+  const skStream3 = useStreamText(
+    "Your Recruitment Pipeline is loaded with all your data. Same board, same structure — but now AI-powered, with agents ready to help you manage candidates faster.",
+    34, 500, atOrPast('r-board'), pastPhase('r-board'),
+  );
+  const skStream4 = useStreamText(
+    "On your left — your workspace with all your boards, plus something new: your AI Agents. I've already created a Screening Agent, Scheduling Agent, and Sourcing Agent tailored to your hiring workflow.",
+    32, 500, atOrPast('r-sidebar'), pastPhase('r-sidebar'),
+  );
+  const skStreams: Record<string, { displayed: string; done: boolean }> = {
+    'r-sidekick': skStream1, 'r-topbar': skStream2, 'r-board': skStream3, 'r-sidebar': skStream4,
   };
 
   const sSettled = useStreamText(`Everything is set up, ${PERSONA.firstName}. Your workspace, your board, your agents — all ready. Want to see what your Screening Agent can do with those ${RECRUITMENT_DATA[0].rows.length} unscreened candidates?`, 32, 600, phase === 'settled', false);
@@ -444,8 +458,17 @@ export function TransitionPage() {
                 </div>
                 {/* Messages */}
                 <div style={{ flex: 1, overflowY: 'auto', padding: '14px 16px' }}>
-                  {Object.entries(skMessages).map(([key, msg]) => {
+                  {Object.entries(skStreams).map(([key, stream]) => {
                     if (!atOrPast(key)) return null;
+                    if (!stream.displayed) return (
+                      <motion.div key={key} initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 16 }}>
+                        <AiGradientIcon size={16} id={`skm${key}`} />
+                        <div>
+                          <span style={{ fontFamily: ff, fontSize: 14, fontWeight: 600, color: 'var(--primary-text-color)', display: 'block', marginBottom: 2 }}>{skName || 'Sidekick'}</span>
+                          <TypingDots />
+                        </div>
+                      </motion.div>
+                    );
                     const isCurrent = phase === key;
                     return (
                       <motion.div key={key} initial={{ opacity: 0, y: 6 }} animate={{ opacity: isCurrent ? 1 : 0.55, y: 0 }} transition={{ duration: 0.4 }}
@@ -453,7 +476,7 @@ export function TransitionPage() {
                         <AiGradientIcon size={16} id={`skm${key}`} />
                         <div>
                           <span style={{ fontFamily: ff, fontSize: 14, fontWeight: 600, color: 'var(--primary-text-color)', display: 'block', marginBottom: 2 }}>{skName || 'Sidekick'}</span>
-                          <span style={{ fontFamily: ff, fontSize: 13, lineHeight: '20px', color: 'var(--primary-text-color)' }}>{msg}</span>
+                          <span style={{ fontFamily: ff, fontSize: 13, lineHeight: '20px', color: 'var(--primary-text-color)' }}>{stream.displayed}</span>
                         </div>
                       </motion.div>
                     );
