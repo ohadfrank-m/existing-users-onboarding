@@ -40,7 +40,7 @@ export function SidekickPage() {
   return (
     <>
       {/* Sidebar */}
-      <div style={{ width: 220, height: '100%', background: 'var(--primary-background-hover-color)', padding: '12px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0 }}>
+      <div style={{ width: 296, display: 'flex', alignSelf: 'stretch', background: 'var(--primary-background-color)', borderRadius: '16px 0 0 0', padding: '12px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0 }}>
         <div style={{ padding: '0 12px', marginBottom: 12 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
             <span style={{ fontSize: 11, fontWeight: 600, color: '#676879', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Sidekick</span>
