@@ -77,8 +77,9 @@ export function WorkspacePage() {
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       >
         <div style={{
-          background: 'linear-gradient(90deg, #1C1F3B 0%, #2D1B4E 35%, #1B2E4A 65%, #1C3B2D 100%)',
-          padding: '14px 24px',
+          background: 'linear-gradient(90deg, #1A1D35 0%, #251545 30%, #152540 60%, #1A3228 100%)',
+          padding: '12px 24px',
+          height: 48,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           position: 'relative',
           overflow: 'hidden',

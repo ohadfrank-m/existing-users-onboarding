@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 import { WorkspacePage } from './components/WorkspacePage';
 import { PreviewPage } from './components/PreviewPage';
+import { HandshakePage } from './components/HandshakePage';
 import { TransitionPage } from './components/TransitionPage';
 import { AgentRunPage } from './components/AgentRunPage';
 import { NewHomePage } from './components/NewHomePage';
@@ -10,14 +11,17 @@ import { PlatformShell } from './components/PlatformShell';
 const base = import.meta.env.BASE_URL;
 
 export const router = createBrowserRouter([
-  /* V1 — original multi-page flow */
-  { path: '/',           Component: WorkspacePage },
-  { path: '/preview',    Component: PreviewPage },
-  { path: '/transition', Component: TransitionPage },
+  /* Six-Act Onboarding Flow */
+  { path: '/',           Component: WorkspacePage },     /* Act 0: The Invitation (banner) */
+  { path: '/preview',    Component: PreviewPage },       /* Act 1: The Pitch (dark modal) */
+  { path: '/handshake',  Component: HandshakePage },     /* Act 2: The Handshake (welcome) */
+  { path: '/transition', Component: TransitionPage },    /* Acts 3-6: Setup + Tour + First Win */
+
+  /* Legacy routes (kept for backwards compat) */
   { path: '/agent-run',  Component: AgentRunPage },
   { path: '/home',       Component: NewHomePage },
-  /* V2 — single-page unified agentic flow */
   { path: '/v2',         Component: V2UnifiedFlow },
-  /* Platform — full AI platform shell with all pages */
+
+  /* Platform — the destination */
   { path: '/platform',   Component: PlatformShell },
 ], { basename: base.endsWith('/') ? base.slice(0, -1) : base });

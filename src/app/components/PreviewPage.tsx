@@ -300,7 +300,7 @@ export function PreviewPage() {
           style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}
         >
           <button
-            onClick={() => navigate('/transition')}
+            onClick={() => navigate('/handshake')}
             style={{
               background: 'var(--primary-color)', border: 'none', borderRadius: 12,
               padding: '16px 40px', cursor: 'pointer',
