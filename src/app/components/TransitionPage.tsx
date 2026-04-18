@@ -1,14 +1,15 @@
 import { useState, useEffect, useRef, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import { Plus, Upload } from 'lucide-react';
+import { Upload } from 'lucide-react';
+import { AICentricTopBar, AICentricIconRail } from './AICentricNav';
 import { PERSONA } from '../data';
 import sidekickClosedImg from '../../assets/sidekick-closed.png';
 
 const ff = 'var(--font-body)';
+const SIDEKICK_GRADIENT = 'conic-gradient(from 180deg at 50% 50%, #8181FF 56.38deg, #33DBDB 150deg, #33D58E 191.38deg, #FFD633 231deg, #FC527D 308.38deg, #8181FF 360deg)';
 
-/* Gradient AI sparkle */
-const AiSparkle = ({ size = 16 }: { size?: number }) => (
+const AiSparkle = ({ size = 20 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
     <path d="M10 1 L11.8 8.2 L19 10 L11.8 11.8 L10 19 L8.2 11.8 L1 10 L8.2 8.2 Z" fill="url(#skSpT)" />
     <defs><linearGradient id="skSpT" x1="0" y1="0" x2="20" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#FB275D" /><stop offset="33%" stopColor="#FFCC00" /><stop offset="66%" stopColor="#00CA72" /><stop offset="100%" stopColor="#8181FF" /></linearGradient></defs>
@@ -24,9 +25,7 @@ const AVATAR_OPTS = [
   { id: 'gem', emoji: '💎', bg: 'linear-gradient(135deg, #579BFC, #0073EA)', label: 'Gem' },
 ];
 
-const SIDEKICK_GRADIENT = 'conic-gradient(from 180deg at 50% 50%, #8181FF 56.38deg, #33DBDB 150deg, #33D58E 191.38deg, #FFD633 231deg, #FC527D 308.38deg, #8181FF 360deg)';
-
-type Step = 1 | 2 | 3 | 4 | 5 | 6;
+type Step = 1 | 2 | 3;
 
 function useStreamText(text: string, speed = 50, delay = 0, enabled = true, instant = false) {
   const [displayed, setDisplayed] = useState(instant ? text : '');
@@ -49,73 +48,44 @@ function useStreamText(text: string, speed = 50, delay = 0, enabled = true, inst
   return { displayed, done };
 }
 
-/* Shared helpers */
-const enterMotion = (delay = 0) => ({
-  initial: { opacity: 0, y: 16 } as const,
-  animate: { opacity: 1, y: 0 } as const,
-  transition: { duration: 0.32, ease: [0.22, 1, 0.36, 1] as number[], delay },
-});
-
 function TypingDots() {
   return (
     <div style={{ display: 'flex', gap: 4, alignItems: 'center', paddingTop: 2 }}>
-      {[0, 1, 2].map(i => <div key={i} style={{ width: 6, height: 6, borderRadius: 'var(--radius-full)', background: 'var(--text-secondary)', animation: 'dotPulse 1.2s ease-in-out infinite', animationDelay: `${i * 0.15}s` }} />)}
-    </div>
-  );
-}
-
-function AIRow({ title, subtitle }: { title: string; subtitle?: string }) {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-8)' }}>
-        <AiSparkle size={20} />
-        <span style={{ fontFamily: ff, fontSize: 'var(--font-size-xl)', fontWeight: 'var(--font-weight-semibold)', lineHeight: '22px', color: 'var(--text-primary)' }}>{title}</span>
-      </div>
-      {subtitle && <span style={{ fontFamily: ff, fontSize: 'var(--font-size-md)', lineHeight: '22px', color: 'var(--text-primary)', paddingLeft: 28 }}>{subtitle}</span>}
+      {[0, 1, 2].map(i => <div key={i} style={{ width: 6, height: 6, borderRadius: '50%', background: '#676879', animation: 'dotPulse 1.2s ease-in-out infinite', animationDelay: `${i * 0.15}s` }} />)}
     </div>
   );
 }
 
 function StreamingAI({ displayed, enabled }: { displayed: string; enabled: boolean }) {
   if (!enabled) return null;
-  if (!displayed) return <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-8)' }}><AiSparkle size={20} /><TypingDots /></div>;
-  return <AIRow title={displayed} />;
+  if (!displayed) return <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><AiSparkle size={20} /><TypingDots /></div>;
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+      <AiSparkle size={20} />
+      <span style={{ fontFamily: ff, fontSize: 16, fontWeight: 600, lineHeight: '24px', color: '#323338' }}>{displayed}</span>
+    </div>
+  );
 }
 
 function StreamingSub({ displayed, enabled }: { displayed: string; enabled: boolean }) {
   if (!enabled) return null;
   if (!displayed) return <div style={{ paddingLeft: 28 }}><TypingDots /></div>;
-  return <span style={{ fontFamily: ff, fontSize: 'var(--font-size-md)', lineHeight: '22px', color: 'var(--text-primary)', paddingLeft: 28, display: 'block' }}>{displayed}</span>;
+  return <span style={{ fontFamily: ff, fontSize: 15, lineHeight: '23px', color: '#323338', paddingLeft: 28, display: 'block' }}>{displayed}</span>;
 }
 
 function UserBubble({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-start', gap: 'var(--space-10)' }}>
-      <div style={{
-        maxWidth: 380, background: 'var(--surface-card-muted)',
-        borderRadius: 'var(--radius-lg) var(--radius-lg) 2px var(--radius-lg)',
-        padding: 'var(--space-12) var(--space-16)',
-        fontFamily: ff, fontSize: 'var(--font-size-lg)', lineHeight: '22px', color: 'var(--text-primary)',
-        display: 'flex', alignItems: 'center', gap: 'var(--space-10)',
-      }}>{children}</div>
-      <div style={{ width: 32, height: 32, borderRadius: 'var(--radius-full)', background: PERSONA.teamMembers[0].color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: ff, fontSize: 13, fontWeight: 'var(--font-weight-semibold)' as any, color: 'var(--text-inverse)', flexShrink: 0 }}>{PERSONA.teamMembers[0].initials}</div>
+    <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-start', gap: 10 }}>
+      <div style={{ maxWidth: 380, background: '#EDF1FC', borderRadius: '12px 12px 2px 12px', padding: '10px 16px', fontFamily: ff, fontSize: 15, color: '#323338', display: 'flex', alignItems: 'center', gap: 10 }}>{children}</div>
+      <div style={{ width: 32, height: 32, borderRadius: '50%', background: PERSONA.teamMembers[0].color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 600, color: '#fff', flexShrink: 0 }}>{PERSONA.teamMembers[0].initials}</div>
     </div>
   );
 }
 
-function PrimaryButton({ label, onClick, disabled }: { label: string; onClick: () => void; disabled?: boolean }) {
-  return (
-    <button onClick={onClick} disabled={disabled}
-      style={{ width: '100%', height: 48, background: disabled ? 'var(--surface-card-muted)' : 'var(--brand-primary)', border: 'none', borderRadius: 'var(--radius-sm)', color: disabled ? 'var(--text-tertiary)' : 'var(--text-inverse)', fontFamily: ff, fontSize: 'var(--font-size-xl)', cursor: disabled ? 'default' : 'pointer' }}>
-      {label}
-    </button>
-  );
-}
-
 const cardStyle: React.CSSProperties = {
-  border: '1px solid transparent', borderRadius: 'var(--radius-lg)',
-  padding: 'var(--space-20) var(--space-24)',
-  background: 'var(--surface-content)', boxShadow: 'var(--shadow-md)',
+  borderRadius: 12, padding: '20px 24px',
+  background: '#fff', boxShadow: '0 2px 12px rgba(0,19,85,0.06)',
+  border: '1px solid transparent',
 };
 
 export function TransitionPage() {
@@ -125,6 +95,7 @@ export function TransitionPage() {
   const [sidekickName, setSidekickName] = useState('');
   const [selectedAvatar, setSelectedAvatar] = useState(AVATAR_OPTS[0]);
   const [uploadedSrc, setUploadedSrc] = useState<string | null>(null);
+  const [transitioning, setTransitioning] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -134,8 +105,7 @@ export function TransitionPage() {
   };
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]; if (!file) return;
-    const url = URL.createObjectURL(file);
-    setUploadedSrc(url);
+    setUploadedSrc(URL.createObjectURL(file));
     setSelectedAvatar({ id: 'upload', emoji: '', bg: '', label: 'Your photo' });
   };
   const handleAvatarConfirm = () => {
@@ -152,23 +122,22 @@ export function TransitionPage() {
   const s1m2 = useStreamText("I'm going to give you superpowers and always be on your side so we can get more things done together.", 42, 300, s1m1.done, step > 1);
   const s1m3 = useStreamText("I'll be guiding you through the new monday. As a first step — what would you like to call me?", 45, 300, s1m2.done, step > 1);
 
-  const s2m1 = useStreamText(`${sidekickName} — I like that! Pick a look for me — I'll use it every time we talk. You can always change it later.`, 45, 500, step >= 2, step > 2);
+  const s2m1 = useStreamText(`${sidekickName} — I like that! Pick a look for me — I'll use it every time we talk.`, 45, 500, step >= 2, step > 2);
 
-  const s3m1 = useStreamText("I've been looking at your workspace while we were setting up — your boards, your team, your data.", 45, 500, step >= 3, step > 3);
-  const s3m2 = useStreamText("I've already started creating agents tailored to your workflow. Let me show you what's new.", 45, 300, s3m1.done, step > 3);
+  const s3m1 = useStreamText("I've been looking at your workspace — your Recruitment Pipeline, your team, your data.", 42, 500, step >= 3, false);
+  const s3m2 = useStreamText("I've already created agents tailored to your hiring workflow. Let me show you everything.", 42, 300, s3m1.done, false);
 
-  const [transitioning, setTransitioning] = useState(false);
-
+  // Transition
   useEffect(() => {
     if (step === 3 && s3m2.done && !transitioning) {
-      const t = setTimeout(() => setTransitioning(true), 1500);
+      const t = setTimeout(() => setTransitioning(true), 1200);
       return () => clearTimeout(t);
     }
   }, [step, s3m2.done, transitioning]);
 
   useEffect(() => {
     if (transitioning) {
-      const t = setTimeout(() => { localStorage.setItem('onboarding_complete', 'true'); navigate('/platform'); }, 2500);
+      const t = setTimeout(() => { localStorage.setItem('onboarding_complete', 'true'); navigate('/platform'); }, 1800);
       return () => clearTimeout(t);
     }
   }, [transitioning, navigate]);
@@ -177,40 +146,88 @@ export function TransitionPage() {
   const streamCount = [s1m1, s1m2, s1m3, s2m1, s3m1, s3m2].reduce((n, s) => n + s.displayed.split(' ').length, 0);
   useEffect(() => { if (streamCount > 0 && streamCount % 4 === 0) bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' }); }, [streamCount]);
 
-  return (
-    <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden', fontFamily: ff, background: 'var(--surface-chrome)' }}>
-      <style>{`@keyframes dotPulse { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } } @keyframes rotateGradient { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+  const avatarBg = selectedAvatar?.bg || AVATAR_OPTS[0].bg;
+  const avatarEmoji = selectedAvatar?.emoji || AVATAR_OPTS[0].emoji;
 
-      {/* Full-page conversation — no topbar, no icon rail */}
-      <div style={{
-        flex: 1, overflowY: 'auto', display: 'flex', justifyContent: 'center',
-        padding: 'var(--space-48) var(--space-24) var(--space-64)',
-        background: 'var(--surface-content)',
-        scrollBehavior: 'smooth',
-      }}>
-          <div style={{ width: 500, maxWidth: '100%', display: 'flex', flexDirection: 'column', gap: 'var(--space-24)' }}>
+  return (
+    <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden', fontFamily: ff, background: '#fff' }}>
+      <style>{`
+        @keyframes dotPulse { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } }
+        @keyframes rotateGradient { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      `}</style>
+
+      {/* AppShell — topbar + icon nav, matching V3 */}
+      <AICentricTopBar userName={PERSONA.teamMembers[0].initials} userColor={PERSONA.teamMembers[0].color} />
+
+      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+        <AICentricIconRail activeItem="sidekick" />
+
+        {/* Main area — conversation inside the platform chrome */}
+        <div style={{
+          flex: 1, overflowY: 'auto', display: 'flex', justifyContent: 'center',
+          padding: '40px 24px 80px',
+          borderTopLeftRadius: 16,
+          background: '#fff',
+          scrollBehavior: 'smooth',
+        }}>
+          <div style={{ width: 520, maxWidth: '100%', display: 'flex', flexDirection: 'column', gap: 24 }}>
+
+            {/* Large Sidekick avatar — hero element at the top */}
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>
+              <motion.div
+                key={selectedAvatar.id}
+                initial={{ scale: 0.9 }} animate={{ scale: 1 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+                style={{
+                  width: 80, height: 80, borderRadius: '50%', padding: 3,
+                  background: SIDEKICK_GRADIENT,
+                  animation: 'rotateGradient 20s linear infinite',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                <div style={{
+                  width: '100%', height: '100%', borderRadius: '50%',
+                  background: avatarBg,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 34, overflow: 'hidden',
+                }}>
+                  {uploadedSrc
+                    ? <img src={uploadedSrc} width={74} height={74} style={{ borderRadius: '50%', objectFit: 'cover' }} alt="" />
+                    : avatarEmoji}
+                </div>
+              </motion.div>
+            </div>
 
             {/* ═══ STEP 1: Name ═══ */}
-            <motion.div {...enterMotion(0)}><StreamingAI displayed={s1m1.displayed} enabled={step >= 1} /></motion.div>
-            {s1m1.done && <motion.div {...enterMotion(0)}><StreamingSub displayed={s1m2.displayed} enabled={step >= 1} /></motion.div>}
-            {s1m2.done && <motion.div {...enterMotion(0)}><StreamingSub displayed={s1m3.displayed} enabled={step >= 1} /></motion.div>}
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+              <StreamingAI displayed={s1m1.displayed} enabled={step >= 1} />
+            </motion.div>
+            {s1m1.done && <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}><StreamingSub displayed={s1m2.displayed} enabled={step >= 1} /></motion.div>}
+            {s1m2.done && <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}><StreamingSub displayed={s1m3.displayed} enabled={step >= 1} /></motion.div>}
 
             <AnimatePresence mode="wait">
               {step === 1 && s1m3.done ? (
-                <motion.div key="name-card" {...enterMotion(0.1)} exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
-                  style={{ ...cardStyle, display: 'flex', flexDirection: 'column', gap: 'var(--space-16)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--border-input)', borderRadius: 'var(--radius-md)', padding: '8px 12px' }}>
-                    <input value={nameInput} onChange={e => setNameInput(e.target.value)} onKeyDown={e => { if (e.key === 'Enter' && nameInput.trim()) handleNameSubmit(); }}
+                <motion.div key="name-card"
+                  initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
+                  style={{ ...cardStyle, display: 'flex', flexDirection: 'column', gap: 16 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #C3C6D4', borderRadius: 8, padding: '8px 12px' }}>
+                    <input value={nameInput} onChange={e => setNameInput(e.target.value)}
+                      onKeyDown={e => { if (e.key === 'Enter' && nameInput.trim()) handleNameSubmit(); }}
                       placeholder="Sidekick" maxLength={32} autoFocus
-                      style={{ flex: 1, border: 'none', outline: 'none', background: 'transparent', fontFamily: ff, fontSize: 'var(--font-size-lg)', color: 'var(--text-primary)' }} />
+                      style={{ flex: 1, border: 'none', outline: 'none', background: 'transparent', fontFamily: ff, fontSize: 15, color: '#323338' }} />
                   </div>
-                  <PrimaryButton label="Continue" onClick={() => handleNameSubmit()} />
+                  <button onClick={() => handleNameSubmit()}
+                    style={{ width: '100%', height: 48, background: '#0073EA', border: 'none', borderRadius: 4, color: '#fff', fontFamily: ff, fontSize: 16, cursor: 'pointer' }}>
+                    Continue
+                  </button>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <button onClick={() => handleNameSubmit('Sidekick')} style={{ background: 'none', border: 'none', fontFamily: ff, fontSize: 'var(--font-size-md)', color: 'var(--text-secondary)', cursor: 'pointer' }}>skip</button>
+                    <button onClick={() => handleNameSubmit('Sidekick')} style={{ background: 'none', border: 'none', fontFamily: ff, fontSize: 14, color: '#676879', cursor: 'pointer' }}>skip</button>
                   </div>
                 </motion.div>
               ) : step > 1 ? (
-                <motion.div key="name-confirmed" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}><UserBubble>{sidekickName}</UserBubble></motion.div>
+                <motion.div key="name-confirmed" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+                  <UserBubble>{sidekickName}</UserBubble>
+                </motion.div>
               ) : null}
             </AnimatePresence>
 
@@ -218,51 +235,58 @@ export function TransitionPage() {
             <AnimatePresence>
               {step >= 2 && (
                 <motion.div key="avatar-section" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-                  style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-24)' }}>
+                  style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
                   <StreamingAI displayed={s2m1.displayed} enabled={step >= 2} />
 
                   <AnimatePresence mode="wait">
                     {step === 2 && s2m1.done ? (
-                      <motion.div key="avatar-card" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
-                        style={{ ...cardStyle, display: 'flex', flexDirection: 'column', gap: 'var(--space-16)' }}>
-                        <div style={{ display: 'flex', gap: 'var(--space-12)', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+                      <motion.div key="avatar-card"
+                        initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
+                        style={{ ...cardStyle, display: 'flex', flexDirection: 'column', gap: 16 }}>
+                        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'flex-start' }}>
                           {AVATAR_OPTS.map(opt => {
                             const isSelected = selectedAvatar?.id === opt.id;
                             return (
                               <button key={opt.id} onClick={() => setSelectedAvatar(opt)} title={opt.label}
                                 style={{
-                                  width: 64, height: 64, borderRadius: 'var(--radius-lg)', padding: 3,
-                                  border: `2px solid ${isSelected ? 'var(--brand-primary)' : 'var(--border-input)'}`,
-                                  background: isSelected ? 'var(--surface-hover)' : 'var(--surface-card-muted)',
-                                  cursor: 'pointer', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                  transform: isSelected ? 'scale(1.08)' : 'scale(1)', transition: 'transform 0.15s, border-color 0.15s',
+                                  width: 64, height: 64, borderRadius: 16, padding: 3,
+                                  border: `2px solid ${isSelected ? '#0073EA' : '#C3C6D4'}`,
+                                  background: isSelected ? '#EDF1FC' : '#F5F6F8',
+                                  cursor: 'pointer', overflow: 'hidden',
+                                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                  transform: isSelected ? 'scale(1.05)' : 'scale(1)',
+                                  transition: 'transform 0.15s, border-color 0.15s',
                                 }}>
-                                <div style={{ width: '100%', height: '100%', borderRadius: 12, background: opt.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28 }}>{opt.emoji}</div>
+                                <div style={{ width: '100%', height: '100%', borderRadius: 12, background: opt.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28 }}>
+                                  {opt.emoji}
+                                </div>
                               </button>
                             );
                           })}
                           {/* Upload */}
                           <button onClick={() => fileInputRef.current?.click()} title="Upload your own"
-                            style={{ width: 64, height: 64, borderRadius: 'var(--radius-lg)', border: `2px dashed ${selectedAvatar?.id === 'upload' ? 'var(--brand-primary)' : 'var(--border-input)'}`, background: selectedAvatar?.id === 'upload' ? 'var(--surface-hover)' : 'transparent', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 3, overflow: 'hidden' }}>
+                            style={{ width: 64, height: 64, borderRadius: 16, border: `2px dashed ${selectedAvatar?.id === 'upload' ? '#0073EA' : '#C3C6D4'}`, background: selectedAvatar?.id === 'upload' ? '#EDF1FC' : 'transparent', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 3, overflow: 'hidden' }}>
                             {selectedAvatar?.id === 'upload' && uploadedSrc ? (
                               <img src={uploadedSrc} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 12 }} />
-                            ) : (<><Upload size={18} color="var(--text-secondary)" /><span style={{ fontSize: 10, color: 'var(--text-secondary)' }}>Upload</span></>)}
+                            ) : (<><Upload size={18} color="#676879" /><span style={{ fontSize: 10, color: '#676879' }}>Upload</span></>)}
                           </button>
                           <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} />
                         </div>
-                        <PrimaryButton label="Looks good" onClick={handleAvatarConfirm} />
+                        <button onClick={handleAvatarConfirm}
+                          style={{ width: '100%', height: 48, background: '#0073EA', border: 'none', borderRadius: 4, color: '#fff', fontFamily: ff, fontSize: 16, cursor: 'pointer' }}>
+                          Looks good
+                        </button>
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                          <button onClick={handleAvatarConfirm} style={{ background: 'none', border: 'none', fontFamily: ff, fontSize: 'var(--font-size-md)', color: 'var(--text-secondary)', cursor: 'pointer' }}>skip</button>
+                          <button onClick={handleAvatarConfirm} style={{ background: 'none', border: 'none', fontFamily: ff, fontSize: 14, color: '#676879', cursor: 'pointer' }}>skip</button>
                         </div>
                       </motion.div>
                     ) : step > 2 ? (
                       <motion.div key="avatar-confirmed" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
                         <UserBubble>
-                          {selectedAvatar?.id === 'upload' && uploadedSrc ? (
-                            <img src={uploadedSrc} alt="" style={{ width: 28, height: 28, objectFit: 'cover', borderRadius: 6 }} />
-                          ) : (
-                            <span style={{ fontSize: 24 }}>{selectedAvatar?.emoji}</span>
-                          )}
+                          {selectedAvatar?.id === 'upload' && uploadedSrc
+                            ? <img src={uploadedSrc} alt="" style={{ width: 28, height: 28, objectFit: 'cover', borderRadius: 6 }} />
+                            : <span style={{ fontSize: 24 }}>{avatarEmoji}</span>}
                           This one!
                         </UserBubble>
                       </motion.div>
@@ -275,8 +299,8 @@ export function TransitionPage() {
             {/* ═══ STEP 3: Outro ═══ */}
             <AnimatePresence>
               {step >= 3 && (
-                <motion.div key="outro-section" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-                  style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-16)' }}>
+                <motion.div key="outro" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                  style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                   <StreamingAI displayed={s3m1.displayed} enabled={step >= 3} />
                   {s3m1.done && <StreamingSub displayed={s3m2.displayed} enabled={step >= 3} />}
                 </motion.div>
@@ -286,24 +310,20 @@ export function TransitionPage() {
             <div ref={bottomRef} style={{ height: 1, flexShrink: 0 }} />
           </div>
         </div>
+      </div>
 
-      {/* Transition — Sidekick circle moves to bottom-right, then navigate */}
+      {/* Transition overlay — clean fade with Sidekick moving to bottom-right */}
       <AnimatePresence>
         {transitioning && (
-          <motion.div key="transition-overlay"
+          <motion.div key="transition"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            style={{ position: 'fixed', inset: 0, zIndex: 200, background: 'var(--surface-content)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-
-            {/* Sidekick closed image moves to bottom-right */}
-            <motion.img
-              src={sidekickClosedImg}
-              initial={{ scale: 1, x: 0, y: 0, opacity: 1 }}
-              animate={{ scale: 0.6, x: 'calc(50vw - 48px)', y: 'calc(50vh - 48px)', opacity: 0.9 }}
-              transition={{ duration: 1.2, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
-              style={{ width: 80, height: 80, borderRadius: 'var(--radius-full)', position: 'relative', zIndex: 10 }}
-              alt=""
-            />
+            transition={{ duration: 0.6 }}
+            style={{ position: 'fixed', inset: 0, zIndex: 200, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <motion.img src={sidekickClosedImg}
+              initial={{ scale: 1, opacity: 1 }}
+              animate={{ scale: 0.7, opacity: 0.8, x: 'calc(50vw - 48px)', y: 'calc(50vh - 48px)' }}
+              transition={{ duration: 1.2, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+              style={{ width: 72, height: 72, borderRadius: '50%' }} alt="" />
           </motion.div>
         )}
       </AnimatePresence>

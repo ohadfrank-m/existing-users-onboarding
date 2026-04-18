@@ -5,13 +5,13 @@ import iconAgents from '../../../assets/icons/agents.svg';
 const ff = 'Figtree, sans-serif';
 
 const ASSETS = [
-  { name: 'Campaign Brief', active: true },
-  { name: 'Study outline', active: false },
-  { name: 'Post-mortem', active: false },
-  { name: 'User interviews', active: false },
-  { name: 'Sprint review', active: false },
-  { name: 'Content Calendar', active: false },
-  { name: 'Social Media Plan', active: false },
+  { name: 'Recruitment Pipeline Overview', active: true },
+  { name: 'Interview Guide Template', active: false },
+  { name: 'Q2 Hiring Plan', active: false },
+  { name: 'Onboarding Checklist', active: false },
+  { name: 'Candidate Feedback Form', active: false },
+  { name: 'Team Structure', active: false },
+  { name: 'Benefits Overview', active: false },
 ];
 
 export function WorkSpacePage() {
@@ -123,31 +123,31 @@ export function WorkSpacePage() {
             <div style={{ width: '80%', height: '85%', background: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'200\' fill=\'none\'%3E%3Crect width=\'400\' height=\'200\' rx=\'8\' fill=\'%23FFF8E1\'/%3E%3Ccircle cx=\'200\' cy=\'100\' r=\'60\' fill=\'%23FFCC00\' opacity=\'0.3\'/%3E%3Ccircle cx=\'140\' cy=\'80\' r=\'30\' fill=\'%23FB275D\' opacity=\'0.2\'/%3E%3Ccircle cx=\'260\' cy=\'120\' r=\'40\' fill=\'%2300C875\' opacity=\'0.2\'/%3E%3C/svg%3E") center/cover', borderRadius: 8 }} />
           </div>
           <div style={{ maxWidth: 720, margin: '0 auto', padding: '32px 40px' }}>
-            <h1 style={{ fontFamily: 'Poppins, sans-serif', fontSize: 32, fontWeight: 600, color: '#323338', margin: '0 0 16px', lineHeight: '40px' }}>Campaign Brief</h1>
+            <h1 style={{ fontFamily: 'Poppins, sans-serif', fontSize: 32, fontWeight: 600, color: '#323338', margin: '0 0 16px', lineHeight: '40px' }}>Recruitment Pipeline Overview</h1>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 28, fontSize: 13, color: '#676879' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <div style={{ width: 22, height: 22, borderRadius: '50%', background: PERSONA.teamMembers[0].color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 700, color: '#fff' }}>{PERSONA.teamMembers[0].initials}</div>
-                <span>Creator: Mark Green</span>
+                <span>Creator: {PERSONA.name}</span>
               </div>
-              <span>·</span><span>Created Apr 10, 2026, 16:13</span><span>·</span><span>Last updated Apr 15, 2026, 16:15</span>
+              <span>·</span><span>Created Apr 1, 2026</span><span>·</span><span>Last updated Apr 17, 2026</span>
             </div>
             <h2 style={{ fontSize: 22, fontWeight: 600, color: '#323338', margin: '0 0 12px' }}>Objectives and KPI</h2>
             <p style={{ fontSize: 15, color: '#323338', lineHeight: '24px', margin: '0 0 24px' }}>
-              Golden Grains is a bakery chain in Charlotte, NC, known for its "Any Reason" policy — everything is baked fresh daily. For Spring 2026, the chain is launching a new campaign, "The Morning Routine," to capture weekday commuter traffic from nearby communities who currently skip the bakery on their way to work.
+              Our recruitment pipeline is designed to streamline the hiring process from initial candidate sourcing through to offer acceptance. The goal is to reduce time-to-hire by 30% while maintaining a high-quality candidate experience. Key performance indicators include: average days in each pipeline stage, candidate satisfaction scores, and offer acceptance rates.
             </p>
-            <h2 style={{ fontSize: 22, fontWeight: 600, color: '#323338', margin: '0 0 12px' }}>Target audience</h2>
+            <h2 style={{ fontSize: 22, fontWeight: 600, color: '#323338', margin: '0 0 12px' }}>Current Pipeline Status</h2>
             <p style={{ fontSize: 15, color: '#323338', lineHeight: '24px', margin: '0 0 20px' }}>
-              The campaign targets weekday morning commuters in the Charlotte metro who currently drive past Golden Grains locations without stopping. These are time-pressed professionals who default to coffee chains or skip breakfast entirely.
+              We currently have 17 active candidates across all pipeline stages. 8 are in the initial screening phase, 4 are in active interviews, 3 are in the offer stage, and 2 positions have been recently filled. The AI Screening Agent has been configured and is ready to help triage incoming applications automatically.
             </p>
             <div style={{ border: '1px solid #E7E9EF', borderRadius: 8, overflow: 'hidden', marginBottom: 24 }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderBottom: '1px solid #E7E9EF' }}>
-                <div style={{ padding: '10px 16px', fontSize: 13, fontWeight: 600, color: '#676879', borderRight: '1px solid #E7E9EF' }}>Category</div>
-                <div style={{ padding: '10px 16px', fontSize: 13, fontWeight: 600, color: '#676879' }}>Details</div>
+                <div style={{ padding: '10px 16px', fontSize: 13, fontWeight: 600, color: '#676879', borderRight: '1px solid #E7E9EF' }}>Metric</div>
+                <div style={{ padding: '10px 16px', fontSize: 13, fontWeight: 600, color: '#676879' }}>Current</div>
               </div>
               {[
-                ['Primary demographic', 'Working professionals aged 25-44 from dual-income households'],
-                ['Geography', 'Commuters by car and on foot within 5km of Golden Grains locations'],
-                ['Behavioral target', 'Habitually skip breakfast or default to coffee chains, responsive to time-saving goods or weekday offers'],
+                ['Open positions', '6 roles across engineering, design, and marketing'],
+                ['Active candidates', '17 in pipeline (8 new, 4 interviewing, 3 offer, 2 hired)'],
+                ['Time-to-hire goal', '< 30 days from application to offer'],
               ].map(([cat, detail], i) => (
                 <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderBottom: i < 2 ? '1px solid #E7E9EF' : 'none' }}>
                   <div style={{ padding: '10px 16px', fontSize: 13, color: '#323338', borderRight: '1px solid #E7E9EF' }}>{cat}</div>

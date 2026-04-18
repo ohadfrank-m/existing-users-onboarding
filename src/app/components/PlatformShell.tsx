@@ -25,7 +25,7 @@ export function PlatformShell() {
   const [streamingText, setStreamingText] = useState('');
   const [streamDone, setStreamDone] = useState(false);
 
-  const fullWelcomeText = `Welcome to your new workspace, ${PERSONA.firstName}! Everything is set up and ready to go. Your boards and documents have been migrated, and I've configured three AI agents tailored to your hiring workflow.`;
+  const fullWelcomeText = `Welcome to your new workspace, ${PERSONA.firstName}! I can see your Recruitment Pipeline has 8 new candidates waiting to be screened. I've already set up three AI agents for your hiring workflow — a Screening Agent, Scheduling Agent, and Sourcing Agent. Want me to run the Screening Agent on those candidates?`;
 
   // Auto-open Sidekick on first arrival from onboarding
   useEffect(() => {
