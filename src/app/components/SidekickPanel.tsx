@@ -1,36 +1,17 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronRight, X, Paperclip, AtSign, Mic, ArrowRight } from 'lucide-react';
+import sidekickIcon from '../../assets/sidekick-icon.png';
 
 const ff = 'var(--font-body)';
 
-/* Gradient AI sparkle */
+/* Sidekick icon */
 const AiSparkle = ({ size = 16 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
-    <path d="M10 1 L11.8 8.2 L19 10 L11.8 11.8 L10 19 L8.2 11.8 L1 10 L8.2 8.2 Z" fill="url(#skSpPanel)" />
-    <defs><linearGradient id="skSpPanel" x1="0" y1="0" x2="20" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#FB275D" /><stop offset="33%" stopColor="#FFCC00" /><stop offset="66%" stopColor="#00CA72" /><stop offset="100%" stopColor="#8181FF" /></linearGradient></defs>
-  </svg>
+  <img src={sidekickIcon} width={size} height={size} alt="" style={{ flexShrink: 0, borderRadius: '50%' }} />
 );
 
 /* Sidekick circular avatar for header */
-function SKAvatar({ size = 24 }: { size?: number }) {
-  return (
-    <div style={{
-      width: size, height: size, borderRadius: 'var(--radius-full)',
-      background: 'var(--brand-ai-gradient)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      flexShrink: 0,
-    }}>
-      <div style={{
-        width: size - 4, height: size - 4, borderRadius: 'var(--radius-full)',
-        background: 'linear-gradient(135deg, #667EEA, #764BA2)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-      }}>
-        <svg width={size * 0.45} height={size * 0.45} viewBox="0 0 20 20" fill="none">
-          <path d="M10 1 L11.8 8.2 L19 10 L11.8 11.8 L10 19 L8.2 11.8 L1 10 L8.2 8.2 Z" fill="#fff" />
-        </svg>
-      </div>
-    </div>
-  );
+function SKAvatar({ size = 26 }: { size?: number }) {
+  return <img src={sidekickIcon} width={size} height={size} alt="" style={{ flexShrink: 0, borderRadius: '50%' }} />;
 }
 
 /* User avatar */

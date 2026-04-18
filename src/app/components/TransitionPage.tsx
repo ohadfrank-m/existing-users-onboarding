@@ -5,15 +5,13 @@ import { Upload } from 'lucide-react';
 import { AICentricTopBar, AICentricIconRail } from './AICentricNav';
 import { PERSONA } from '../data';
 import sidekickClosedImg from '../../assets/sidekick-closed.png';
+import sidekickIcon from '../../assets/sidekick-icon.png';
 
 const ff = 'var(--font-body)';
 const SIDEKICK_GRADIENT = 'conic-gradient(from 180deg at 50% 50%, #8181FF 56.38deg, #33DBDB 150deg, #33D58E 191.38deg, #FFD633 231deg, #FC527D 308.38deg, #8181FF 360deg)';
 
 const AiSparkle = ({ size = 20 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
-    <path d="M10 1 L11.8 8.2 L19 10 L11.8 11.8 L10 19 L8.2 11.8 L1 10 L8.2 8.2 Z" fill="url(#skSpT)" />
-    <defs><linearGradient id="skSpT" x1="0" y1="0" x2="20" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#FB275D" /><stop offset="33%" stopColor="#FFCC00" /><stop offset="66%" stopColor="#00CA72" /><stop offset="100%" stopColor="#8181FF" /></linearGradient></defs>
-  </svg>
+  <img src={sidekickIcon} width={size} height={size} alt="" style={{ flexShrink: 0, borderRadius: '50%' }} />
 );
 
 const AVATAR_OPTS = [
@@ -186,13 +184,14 @@ export function TransitionPage() {
                 }}>
                 <div style={{
                   width: '100%', height: '100%', borderRadius: '50%',
-                  background: avatarBg,
+                  background: step >= 2 && selectedAvatar ? avatarBg : '#F0F1F5',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: 34, overflow: 'hidden',
                 }}>
                   {uploadedSrc
                     ? <img src={uploadedSrc} width={74} height={74} style={{ borderRadius: '50%', objectFit: 'cover' }} alt="" />
-                    : avatarEmoji}
+                    : step >= 2 && selectedAvatar?.emoji ? avatarEmoji
+                    : <img src={sidekickIcon} width={50} height={50} style={{ borderRadius: '50%' }} alt="" />}
                 </div>
               </motion.div>
             </div>
