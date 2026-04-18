@@ -220,13 +220,13 @@ export function AICentricTopBar({ userName, userColor = '#9D50DD' }: { userName?
           <div style={{ width: 16, height: 16, display: 'grid', gridTemplateColumns: 'repeat(3, 3px)', gap: '2px', alignContent: 'center', justifyContent: 'center', cursor: 'pointer' }}>
             {[...Array(9)].map((_, i) => <div key={i} style={{ width: 3, height: 3, borderRadius: 0.5, background: '#676879', opacity: 0.45 }} />)}
           </div>
-          {/* Avatar in pill wrapper with green status dot */}
-          <div style={{ display: 'flex', alignItems: 'center', padding: '3px', background: '#F5F6F8', borderRadius: 16, position: 'relative' }}>
-            <div style={{ width: 26, height: 26, borderRadius: '50%', overflow: 'hidden' }}>
-              <img src={imgAvatar} width={26} height={26} style={{ objectFit: 'cover', display: 'block' }} alt="" />
+          {/* User avatar — plain circle, no border/ring */}
+          <div style={{ position: 'relative' }}>
+            <div style={{ width: 28, height: 28, borderRadius: '50%', overflow: 'hidden' }}>
+              <img src={imgAvatar} width={28} height={28} style={{ objectFit: 'cover', display: 'block' }} alt="" />
             </div>
             {/* Green online status dot */}
-            <div style={{ position: 'absolute', bottom: 2, right: 2, width: 8, height: 8, borderRadius: '50%', background: '#00CA72', border: '2px solid #F5F6F8' }} />
+            <div style={{ position: 'absolute', bottom: 0, right: 0, width: 8, height: 8, borderRadius: '50%', background: '#00CA72', border: '2px solid #fff' }} />
           </div>
         </div>
       </div>
