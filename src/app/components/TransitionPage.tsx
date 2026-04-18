@@ -170,29 +170,23 @@ export function TransitionPage() {
         }}>
           <div style={{ width: 520, maxWidth: '100%', display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-            {/* Large Sidekick avatar — hero element at the top */}
+            {/* Sidekick avatar — shows the icon by default, switches to chosen avatar */}
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>
               <motion.div
-                key={selectedAvatar.id}
+                key={step > 2 ? selectedAvatar.id : 'default'}
                 initial={{ scale: 0.9 }} animate={{ scale: 1 }}
-                transition={{ type: 'spring', stiffness: 300 }}
-                style={{
-                  width: 80, height: 80, borderRadius: '50%', padding: 3,
-                  background: SIDEKICK_GRADIENT,
-                  animation: 'rotateGradient 20s linear infinite',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}>
-                <div style={{
-                  width: '100%', height: '100%', borderRadius: '50%',
-                  background: step >= 2 && selectedAvatar ? avatarBg : '#F0F1F5',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 34, overflow: 'hidden',
-                }}>
-                  {uploadedSrc
-                    ? <img src={uploadedSrc} width={74} height={74} style={{ borderRadius: '50%', objectFit: 'cover' }} alt="" />
-                    : step >= 2 && selectedAvatar?.emoji ? avatarEmoji
-                    : <img src={sidekickIcon} width={50} height={50} style={{ borderRadius: '50%' }} alt="" />}
-                </div>
+                transition={{ type: 'spring', stiffness: 300 }}>
+                {step > 2 && (selectedAvatar?.emoji || uploadedSrc) ? (
+                  /* After avatar is chosen — show it with gradient ring */
+                  <div style={{ width: 80, height: 80, borderRadius: '50%', padding: 3, background: SIDEKICK_GRADIENT, animation: 'rotateGradient 20s linear infinite', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ width: '100%', height: '100%', borderRadius: '50%', background: avatarBg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 34, overflow: 'hidden' }}>
+                      {uploadedSrc ? <img src={uploadedSrc} width={74} height={74} style={{ borderRadius: '50%', objectFit: 'cover' }} alt="" /> : avatarEmoji}
+                    </div>
+                  </div>
+                ) : (
+                  /* Default — just the Sidekick icon, clean, no extra ring */
+                  <img src={sidekickIcon} width={80} height={80} alt="" style={{ borderRadius: '50%' }} />
+                )}
               </motion.div>
             </div>
 
