@@ -18,7 +18,7 @@ export function WorkSpacePage() {
   return (
     <>
       {/* Sidebar */}
-      <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', borderRight: '0.5px solid var(--layout-border-color)', background: 'var(--primary-background-color)', overflow: 'hidden', fontFamily: ff, flexShrink: 0 }}>
+      <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 16, alignSelf: 'stretch', borderRadius: '16px 0 0 0', borderRight: '0.5px solid var(--layout-border-color)', background: 'var(--primary-background-color)', overflow: 'hidden', fontFamily: ff, flexShrink: 0 }}>
 
         {/* Workspace dropdown + add button */}
         <div style={{ width: '100%' }}>
@@ -88,7 +88,7 @@ export function WorkSpacePage() {
       {/* Main content — document view */}
       <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
         {/* Doc toolbar */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 2, padding: '6px 20px', borderBottom: '1px solid #E7E9EF', flexShrink: 0 }}>
+        <div style={{ display: 'flex', padding: 16, justifyContent: 'space-between', alignItems: 'center', alignSelf: 'stretch', borderBottom: '1px solid #E7E9EF', flexShrink: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 10px', background: '#0073EA', borderRadius: 4, cursor: 'pointer', marginRight: 6 }}>
             <Plus size={11} color="#fff" /><span style={{ fontSize: 12, fontWeight: 500, color: '#fff' }}>Add</span>
           </div>
@@ -118,7 +118,7 @@ export function WorkSpacePage() {
         </div>
 
         {/* Doc content */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '0 0 40px' }}>
+        <div style={{ display: 'flex', paddingBottom: 40, flexDirection: 'column', alignItems: 'center', gap: 24, flex: '1 0 0', alignSelf: 'stretch', overflowY: 'auto' }}>
           <div style={{ width: '100%', height: 200, background: 'linear-gradient(135deg, #FFF3E0, #FFE0B2)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ width: '80%', height: '85%', background: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'200\' fill=\'none\'%3E%3Crect width=\'400\' height=\'200\' rx=\'8\' fill=\'%23FFF8E1\'/%3E%3Ccircle cx=\'200\' cy=\'100\' r=\'60\' fill=\'%23FFCC00\' opacity=\'0.3\'/%3E%3Ccircle cx=\'140\' cy=\'80\' r=\'30\' fill=\'%23FB275D\' opacity=\'0.2\'/%3E%3Ccircle cx=\'260\' cy=\'120\' r=\'40\' fill=\'%2300C875\' opacity=\'0.2\'/%3E%3C/svg%3E") center/cover', borderRadius: 8 }} />
           </div>

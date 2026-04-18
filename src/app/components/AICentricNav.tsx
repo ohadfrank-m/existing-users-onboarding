@@ -124,7 +124,7 @@ interface SidebarProps { agents?: { name: string; emoji: string; color: string }
 
 export function AICentricSidebar({ agents = [], boards = [], workspaceName = 'Novella', animate = false }: SidebarProps) {
   return (
-    <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', borderRight: '0.5px solid var(--layout-border-color)', background: 'var(--primary-background-color)', overflow: 'hidden', fontFamily: ff }}>
+    <div style={{ display: 'flex', width: 296, padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 16, alignSelf: 'stretch', borderRadius: '16px 0 0 0', borderRight: '0.5px solid var(--layout-border-color)', background: 'var(--primary-background-color)', overflow: 'hidden', fontFamily: ff }}>
       {/* Header */}
       <div style={{ padding: '0 12px', marginBottom: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
@@ -185,7 +185,7 @@ export function AICentricSidebar({ agents = [], boards = [], workspaceName = 'No
 /* ═══ TOP BAR ═══ */
 export function AICentricTopBar({ userName, userColor = '#9D50DD' }: { userName?: string; userColor?: string }) {
   return (
-    <div style={{ height: 40, background: 'var(--chrome-surface-color)', flexShrink: 0, display: 'flex', alignItems: 'center', padding: '0 12px' }}>
+    <div style={{ display: 'flex', padding: '8px 20px', alignItems: 'center', gap: 16, alignSelf: 'stretch', background: 'var(--chrome-surface-color)' }}>
       {/* Left — monday colored logo */}
       <div style={{ width: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
         <img src={iconMondayLogo} width={24} height={24} alt="monday" />

@@ -331,7 +331,7 @@ export function TransitionPage() {
             </div>
 
             {/* SIDEBAR */}
-            <div style={{ zIndex: phase === 'tour-sidebar' ? 55 : 10, position: 'relative', width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', borderRight: '0.5px solid var(--layout-border-color)', background: 'var(--primary-background-color)', overflow: 'hidden', flexShrink: 0 }}>
+            <div style={{ zIndex: phase === 'tour-sidebar' ? 55 : 10, position: 'relative', width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 16, alignSelf: 'stretch', borderRadius: '16px 0 0 0', borderRight: '0.5px solid var(--layout-border-color)', background: 'var(--primary-background-color)', overflow: 'hidden', flexShrink: 0 }}>
               {phase === 'tour-sidebar' && <div style={{ position: 'absolute', inset: -2, borderRadius: '16px 0 0 0', border: '2px solid rgba(0,115,234,0.4)', pointerEvents: 'none', animation: 'pulseGlow 2s ease-in-out infinite' }} />}
               <div style={{ width: '100%' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}><span style={{ fontSize: 11, fontWeight: 600, color: '#676879', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Workspace</span><MoreHorizontal size={14} color="#676879" /></div>
@@ -356,7 +356,7 @@ export function TransitionPage() {
             <div style={{ flex: 1, position: 'relative', zIndex: phase === 'tour-board' ? 55 : 5 }}>
               {phase === 'tour-board' && <div style={{ position: 'absolute', inset: -2, borderRadius: '16px 0 0 0', border: '2px solid rgba(0,115,234,0.4)', pointerEvents: 'none', zIndex: 60, animation: 'pulseGlow 2s ease-in-out infinite' }} />}
               <div style={{ height: '100%', background: '#fff', borderTopLeftRadius: 16, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 2, padding: '6px 20px', borderBottom: '1px solid #E7E9EF', flexShrink: 0 }}>
+                <div style={{ display: 'flex', padding: 16, justifyContent: 'space-between', alignItems: 'center', alignSelf: 'stretch', borderBottom: '1px solid #E7E9EF', flexShrink: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 10px', background: '#0073EA', borderRadius: 4 }}><Plus size={11} color="#fff" /><span style={{ fontSize: 12, fontWeight: 500, color: '#fff' }}>Add</span></div>
                   <div style={{ width: 1, height: 16, background: '#E7E9EF', margin: '0 4px' }} />
                   <Undo2 size={14} color="#676879" style={{ padding: 3 }} /><Redo2 size={14} color="#676879" style={{ padding: 3 }} />
