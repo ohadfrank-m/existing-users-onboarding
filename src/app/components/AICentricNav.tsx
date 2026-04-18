@@ -43,9 +43,9 @@ const NAV_ITEMS: NavDef[] = [
 ];
 
 /* ═══ ICON RAIL ═══ */
-interface IconRailProps { animate?: boolean; activeItem?: string }
+interface IconRailProps { animate?: boolean; activeItem?: string; onNavClick?: (id: string) => void }
 
-export function AICentricIconRail({ animate = false, activeItem = 'workspace' }: IconRailProps) {
+export function AICentricIconRail({ animate = false, activeItem = 'workspace', onNavClick }: IconRailProps) {
   return (
     <div style={{
       width: 56, height: '100%', background: '#fff',
@@ -67,8 +67,8 @@ export function AICentricIconRail({ animate = false, activeItem = 'workspace' }:
 
           return (
             <W key={item.id} {...anim} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{
-                width: 44, height: 36, borderRadius: 8,
+              <button aria-label={item.label.replace('\n', ' ')} onClick={() => onNavClick?.(item.id)} style={{
+                width: 44, height: 36, borderRadius: 8, border: 'none',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 cursor: 'pointer', position: 'relative',
                 background: isActive ? 'var(--nav-active-bg)' : 'transparent',
@@ -79,7 +79,7 @@ export function AICentricIconRail({ animate = false, activeItem = 'workspace' }:
                 ) : (
                   <img src={item.src} width={20} height={20} alt="" style={{ filter: isActive ? activeFilter : 'none', opacity: isActive ? 1 : 0.75 }} />
                 )}
-              </div>
+              </button>
               <span style={{ fontSize: 9, fontFamily: ff, lineHeight: '11px', color: isActive ? 'var(--primary-color)' : 'var(--secondary-text-color)', fontWeight: isActive ? 600 : 400, textAlign: 'center', whiteSpace: 'pre-line', marginTop: 1, marginBottom: 2 }}>{item.label}</span>
               {item.dividerAfter && <div style={{ width: 28, height: 1, background: 'var(--ui-background-color)', margin: '4px 0' }} />}
             </W>
@@ -89,10 +89,10 @@ export function AICentricIconRail({ animate = false, activeItem = 'workspace' }:
 
       {/* More — bottom */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div style={{ width: 44, height: 36, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+        <button aria-label="More" onClick={() => onNavClick?.('more')} style={{ width: 44, height: 36, borderRadius: 8, border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', background: 'transparent' }}>
           <img src={iconMore} width={20} height={20} alt="" style={{ opacity: 0.75 }} />
-        </div>
-        <span style={{ fontSize: 9, fontFamily: ff, color: 'var(--secondary-text-color)', marginTop: 1 }}>More</span>
+        </button>
+        <span data-nav-id="more" style={{ fontSize: 9, fontFamily: ff, color: 'var(--secondary-text-color)', marginTop: 1, cursor: 'pointer' }}>More</span>
       </div>
     </div>
   );
