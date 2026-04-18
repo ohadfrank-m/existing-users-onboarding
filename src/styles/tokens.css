@@ -1,0 +1,205 @@
+/*
+ * Design Token System — Single Source of Truth
+ * Every component must consume these tokens.
+ * No hardcoded hex colors, pixel values, or duration strings.
+ */
+
+:root {
+  /* ═══════════════════════════════════════════
+     1. COLOR TOKENS
+     ═══════════════════════════════════════════ */
+
+  /* Surfaces */
+  --surface-chrome:           #FFFFFF;                     /* nav rail, topbar, sidebar bg */
+  --surface-content:          #FFFFFF;                     /* white content body */
+  --surface-overlay:          rgba(0, 0, 0, 0.35);        /* dim overlay for spotlight */
+  --surface-overlay-heavy:    rgba(0, 0, 0, 0.5);         /* dark modal backdrop */
+  --surface-card:             #FFFFFF;                     /* elevated card bg */
+  --surface-card-muted:       #F5F6F8;                    /* muted card / input bg */
+  --surface-hover:            #DCE9FC;                     /* hover/active nav pill */
+  --surface-selected:         #D0E4FF;                     /* selected list item */
+  --surface-modal-dark:       #0A0B10;                     /* pitch modal bg */
+
+  /* Text */
+  --text-primary:             #323338;                     /* body, headings */
+  --text-secondary:           #676879;                     /* metadata, subtitles */
+  --text-tertiary:            #A8A8B8;                     /* placeholder, disabled */
+  --text-inverse:             #FFFFFF;                     /* text on dark surfaces */
+  --text-brand:               #0073EA;                     /* primary blue for links, active */
+
+  /* Brand */
+  --brand-primary:            #0073EA;                     /* monday blue — primary CTAs */
+  --brand-primary-hover:      #0060C0;                     /* hover state */
+  --brand-primary-active:     #004FA3;                     /* pressed state */
+  --brand-red:                #FB275D;
+  --brand-yellow:             #FFCC00;
+  --brand-green:              #00CA72;
+  --brand-purple:             #8181FF;
+  --brand-ai-gradient:        conic-gradient(
+                                from 180deg at 50% 50%,
+                                #8181FF 56.38deg,
+                                #33DBDB 150deg,
+                                #33D58E 191.38deg,
+                                #FFD633 231deg,
+                                #FC527D 308.38deg,
+                                #8181FF 360deg
+                              );
+
+  /* Status colors */
+  --color-success:            #00C875;
+  --color-warning:            #FDAB3D;
+  --color-error:              #E2445C;
+  --color-info:               #579BFC;
+  --color-purple:             #784BD1;
+
+  /* Agent colors */
+  --agent-screening:          #00C875;
+  --agent-scheduling:         #579BFC;
+  --agent-sourcing:           #FDAB3D;
+
+  /* Borders */
+  --border-subtle:            #D0D4E4;                     /* default borders, dividers */
+  --border-light:             #E7E9EF;                     /* lighter dividers */
+  --border-emphasis:          #0073EA;                     /* focused inputs, active */
+  --border-input:             #C3C6D4;                     /* input field borders */
+
+  /* ═══════════════════════════════════════════
+     2. SPACING TOKENS
+     ═══════════════════════════════════════════ */
+  --space-2:   2px;
+  --space-4:   4px;
+  --space-6:   6px;
+  --space-8:   8px;
+  --space-10:  10px;
+  --space-12:  12px;
+  --space-14:  14px;
+  --space-16:  16px;
+  --space-20:  20px;
+  --space-24:  24px;
+  --space-28:  28px;
+  --space-32:  32px;
+  --space-40:  40px;
+  --space-48:  48px;
+  --space-64:  64px;
+
+  /* ═══════════════════════════════════════════
+     3. RADIUS TOKENS
+     ═══════════════════════════════════════════ */
+  --radius-xs:    2px;
+  --radius-sm:    4px;
+  --radius-md:    8px;
+  --radius-lg:    16px;
+  --radius-pill:  100px;
+  --radius-full:  50%;
+
+  /* ═══════════════════════════════════════════
+     4. TYPOGRAPHY TOKENS
+     ═══════════════════════════════════════════ */
+
+  /* Font families */
+  --font-body:    'Figtree', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+
+  /* Font sizes */
+  --font-size-xs:   9px;
+  --font-size-sm:   11px;
+  --font-size-base: 13px;
+  --font-size-md:   14px;
+  --font-size-lg:   15px;
+  --font-size-xl:   16px;
+  --font-size-2xl:  20px;
+  --font-size-3xl:  26px;
+  --font-size-4xl:  32px;
+
+  /* Font weights */
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  /* Line heights */
+  --line-height-tight:    1.2;
+  --line-height-normal:   1.5;
+  --line-height-relaxed:  1.65;
+
+  /* ═══════════════════════════════════════════
+     5. COMPONENT TOKENS (derived)
+     ═══════════════════════════════════════════ */
+
+  /* Nav rail */
+  --nav-rail-width:           80px;
+  --nav-rail-padding:         16px 12px 2px 12px;
+  --nav-rail-gap:             12px;
+  --nav-rail-item-size:       40px;
+  --nav-rail-item-radius:     var(--radius-md);
+  --nav-rail-item-active-bg:  var(--surface-hover);
+  --nav-rail-indicator-width: 3px;
+  --nav-rail-indicator-color: var(--brand-primary);
+
+  /* Inner sidebar */
+  --inner-sidebar-width:      296px;
+  --inner-sidebar-padding:    16px 20px;
+  --inner-sidebar-gap:        16px;
+  --inner-sidebar-radius:     var(--radius-lg) 0 0 0;
+  --inner-sidebar-border:     0.5px solid var(--border-subtle);
+  --inner-sidebar-bg:         var(--surface-content);
+
+  /* Topbar */
+  --topbar-padding:           8px 20px;
+  --topbar-gap:               16px;
+  --topbar-bg:                var(--surface-chrome);
+
+  /* Search bar */
+  --searchbar-width:          400px;
+  --searchbar-height:         32px;
+  --searchbar-radius:         var(--radius-pill);
+  --searchbar-bg:             var(--surface-card-muted);
+
+  /* Content area */
+  --content-toolbar-padding:  var(--space-16);
+  --content-main-padding-bottom: var(--space-40);
+  --content-main-gap:         var(--space-24);
+  --content-radius:           var(--radius-lg) 0 0 0;
+
+  /* Sidekick panel */
+  --sidekick-panel-width:     340px;
+  --sidekick-panel-bg:        var(--surface-content);
+  --sidekick-gradient-border: linear-gradient(180deg, #FB275D, #FFCC00, #00CA72, #8181FF);
+  --sidekick-badge-bg:        #EDF1FC;
+  --sidekick-badge-color:     var(--brand-primary);
+
+  /* Avatar */
+  --avatar-size-sm:           22px;
+  --avatar-size-md:           28px;
+  --avatar-size-lg:           56px;
+  --avatar-size-xl:           64px;
+  --avatar-size-hero:         120px;
+  --avatar-picker-size:       64px;
+
+  /* ═══════════════════════════════════════════
+     6. MOTION TOKENS
+     ═══════════════════════════════════════════ */
+  --duration-instant:    100ms;
+  --duration-fast:       150ms;
+  --duration-normal:     250ms;
+  --duration-slow:       500ms;
+  --duration-transition: 800ms;
+
+  --easing-standard:     cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-emphasized:   cubic-bezier(0.2, 0, 0, 1);
+  --easing-spring:       cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ═══════════════════════════════════════════
+     7. ELEVATION TOKENS (shadows)
+     ═══════════════════════════════════════════ */
+  --shadow-sm:     0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md:     0 2px 12px rgba(0, 19, 85, 0.08);
+  --shadow-lg:     0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-modal:  0 24px 80px rgba(0, 0, 0, 0.2);
+  --shadow-cta:    0 4px 16px rgba(0, 115, 234, 0.3);
+  --shadow-pill:   0 2px 12px rgba(0, 0, 0, 0.08);
+
+  /* Spotlight glow */
+  --spotlight-color:   rgba(0, 115, 234, 0.4);
+  --spotlight-border:  2px solid var(--spotlight-color);
+}

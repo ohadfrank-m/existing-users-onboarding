@@ -15,10 +15,9 @@ import iconInvite from '../../assets/icons/invite.svg';
 import iconHelp from '../../assets/icons/help.svg';
 import imgAvatar from '../../assets/agent-avatar-1.png';
 
-const ff = 'Figtree, sans-serif';
 const activeFilter = 'brightness(0) saturate(100%) invert(30%) sepia(98%) saturate(1800%) hue-rotate(196deg) brightness(97%) contrast(101%)';
 
-/* Sidekick icon — gradient when active, monochrome gray when inactive */
+/* Sidekick icon — gradient when active, monochrome when inactive */
 const SidekickPinwheel = ({ size = 20, active = false }: { size?: number; active?: boolean }) => {
   const c1 = active ? '#FAD239' : '#9A9BB0';
   const c2 = active ? '#6161FF' : '#B0B1C3';
@@ -34,7 +33,6 @@ const SidekickPinwheel = ({ size = 20, active = false }: { size?: number; active
   );
 };
 
-/* Nav items — NO monday logo in the rail, just the nav icons */
 interface NavDef { id: string; src?: string; label: string; dividerAfter?: boolean; custom?: boolean }
 const NAV_ITEMS: NavDef[] = [
   { id: 'workspace', src: iconWorkspace, label: 'Work\nSpace' },
@@ -45,18 +43,23 @@ const NAV_ITEMS: NavDef[] = [
   { id: 'notetaker', src: iconNotetaker, label: 'Notetaker' },
 ];
 
-/* ═══ ICON RAIL ═══ */
+/* ═══ ICON RAIL — all values from tokens ═══ */
 interface IconRailProps { animate?: boolean; activeItem?: string; onNavClick?: (id: string) => void }
 
 export function AICentricIconRail({ animate = false, activeItem = 'workspace', onNavClick }: IconRailProps) {
   return (
     <div style={{
-      width: 80, display: 'flex', padding: '16px 12px 2px 12px',
-      flexDirection: 'column', alignItems: 'center',
-      gap: 12, flexShrink: 0, alignSelf: 'stretch',
-      background: 'var(--chrome-surface-color)',
+      width: 'var(--nav-rail-width)' as any,
+      display: 'flex',
+      padding: 'var(--nav-rail-padding)' as any,
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: 'var(--nav-rail-gap)' as any,
+      flexShrink: 0,
+      alignSelf: 'stretch',
+      background: 'var(--surface-chrome)',
     }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', gap: 2 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', gap: 'var(--space-2)' as any }}>
         {NAV_ITEMS.map((item, i) => {
           const isActive = item.id === activeItem;
           const W = animate ? motion.div : ('div' as any);
@@ -68,51 +71,51 @@ export function AICentricIconRail({ animate = false, activeItem = 'workspace', o
                 aria-label={item.label.replace('\n', ' ')}
                 onClick={() => onNavClick?.(item.id)}
                 style={{
-                  width: 40, borderRadius: 8, border: 'none',
+                  width: 'var(--nav-rail-item-size)' as any,
+                  borderRadius: 'var(--nav-rail-item-radius)' as any,
+                  border: 'none',
                   display: 'flex', flexDirection: 'column', alignItems: 'center',
                   justifyContent: 'center', gap: 1,
                   cursor: 'pointer', position: 'relative',
                   padding: '6px 0 4px',
-                  background: isActive ? '#DCE9FC' : 'transparent',
-                }}
-              >
+                  background: isActive ? 'var(--nav-rail-item-active-bg)' : 'transparent',
+                }}>
                 {isActive && (
                   <div style={{
                     position: 'absolute', left: -4, top: '50%', transform: 'translateY(-50%)',
-                    width: 3, height: 20, borderRadius: '0 2px 2px 0',
-                    background: '#0073EA',
+                    width: 'var(--nav-rail-indicator-width)' as any,
+                    height: 20, borderRadius: '0 2px 2px 0',
+                    background: 'var(--nav-rail-indicator-color)',
                   }} />
                 )}
                 {item.custom ? (
                   <SidekickPinwheel size={18} active={isActive} />
                 ) : (
-                  <img src={item.src} width={18} height={18} alt="" style={{ filter: isActive ? activeFilter : 'none', opacity: 1 }} />
+                  <img src={item.src} width={18} height={18} alt="" style={{ filter: isActive ? activeFilter : 'none' }} />
                 )}
                 <span style={{
-                  fontSize: 9, fontFamily: ff, lineHeight: '11px',
-                  color: isActive ? '#0073EA' : '#676879',
-                  fontWeight: isActive ? 600 : 400,
+                  fontSize: 'var(--font-size-xs)' as any,
+                  fontFamily: 'var(--font-body)',
+                  lineHeight: 'var(--line-height-tight)' as any,
+                  color: isActive ? 'var(--text-brand)' : 'var(--text-secondary)',
+                  fontWeight: isActive ? 'var(--font-weight-semibold)' as any : 'var(--font-weight-regular)' as any,
                   textAlign: 'center', whiteSpace: 'pre-line',
                 }}>
                   {item.label}
                 </span>
               </button>
-              {item.dividerAfter && <div style={{ width: 24, height: 1, background: '#E7E9EF', margin: '6px 0' }} />}
+              {item.dividerAfter && <div style={{ width: 24, height: 1, background: 'var(--border-light)', margin: '6px 0' }} />}
             </W>
           );
         })}
       </div>
 
-      {/* More — pinned bottom */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <button
-          aria-label="More"
-          onClick={() => onNavClick?.('more')}
-          style={{ width: 36, height: 32, borderRadius: 6, border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', background: 'transparent', padding: 0 }}
-        >
-          <img src={iconMore} width={18} height={18} alt="" style={{ opacity: 1 }} />
+        <button aria-label="More" onClick={() => onNavClick?.('more')}
+          style={{ width: 36, height: 32, borderRadius: 'var(--radius-sm)' as any, border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', background: 'transparent', padding: 0 }}>
+          <img src={iconMore} width={18} height={18} alt="" />
         </button>
-        <span style={{ fontSize: 9, fontFamily: ff, color: '#676879', marginTop: 1 }}>More</span>
+        <span style={{ fontSize: 'var(--font-size-xs)' as any, fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', marginTop: 1 }}>More</span>
       </div>
     </div>
   );
@@ -124,55 +127,60 @@ interface SidebarProps { agents?: { name: string; emoji: string; color: string }
 
 export function AICentricSidebar({ agents = [], boards = [], workspaceName = 'Novella', animate = false }: SidebarProps) {
   return (
-    <div style={{ display: 'flex', width: 296, padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 16, alignSelf: 'stretch', borderRadius: '16px 0 0 0', borderRight: '0.5px solid var(--layout-border-color)', background: 'var(--primary-background-color)', overflow: 'hidden', fontFamily: ff }}>
-      {/* Header */}
-      <div style={{ padding: '0 12px', marginBottom: 10 }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-          <span style={{ fontSize: 11, fontWeight: 600, color: '#676879', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Workspace</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <ChevronRight size={12} color="#676879" style={{ cursor: 'pointer', transform: 'rotate(180deg)' }} />
-            <MoreHorizontal size={14} color="#676879" style={{ cursor: 'pointer' }} />
+    <div style={{
+      display: 'flex',
+      width: 'var(--inner-sidebar-width)' as any,
+      padding: 'var(--inner-sidebar-padding)' as any,
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      gap: 'var(--inner-sidebar-gap)' as any,
+      alignSelf: 'stretch',
+      borderRadius: 'var(--inner-sidebar-radius)' as any,
+      borderRight: 'var(--inner-sidebar-border)' as any,
+      background: 'var(--inner-sidebar-bg)',
+      overflow: 'hidden',
+      fontFamily: 'var(--font-body)',
+    }}>
+      <div style={{ padding: '0 var(--space-12)' as any, marginBottom: 'var(--space-10)' as any, width: '100%' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-8)' as any }}>
+          <span style={{ fontSize: 'var(--font-size-sm)' as any, fontWeight: 'var(--font-weight-semibold)' as any, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Workspace</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' as any }}>
+            <ChevronRight size={12} color="var(--text-secondary)" style={{ transform: 'rotate(180deg)', cursor: 'pointer' }} />
+            <MoreHorizontal size={14} color="var(--text-secondary)" style={{ cursor: 'pointer' }} />
           </div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 8px', background: '#F5F6F8', borderRadius: 4, cursor: 'pointer' }}>
-          <div style={{ width: 20, height: 20, borderRadius: 4, background: '#7B68EE', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff' }}>{workspaceName[0]}</div>
-          <span style={{ fontSize: 13, fontWeight: 500, color: '#323338', flex: 1 }}>{workspaceName}</span>
-          <ChevronDown size={12} color="#676879" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-8)' as any, padding: '5px 8px', background: 'var(--surface-card-muted)', borderRadius: 'var(--radius-sm)' as any, cursor: 'pointer' }}>
+          <div style={{ width: 'var(--avatar-size-sm)' as any, height: 'var(--avatar-size-sm)' as any, borderRadius: 'var(--radius-sm)' as any, background: '#7B68EE', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 'var(--font-size-xs)' as any, fontWeight: 'var(--font-weight-bold)' as any, color: 'var(--text-inverse)' }}>{workspaceName[0]}</div>
+          <span style={{ fontSize: 'var(--font-size-base)' as any, fontWeight: 'var(--font-weight-medium)' as any, color: 'var(--text-primary)', flex: 1 }}>{workspaceName}</span>
+          <ChevronDown size={12} color="var(--text-secondary)" />
         </div>
       </div>
-
-      {/* Content */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '0 6px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '0 var(--space-6)' as any, width: '100%' }}>
         {agents.length > 0 && (
-          <div style={{ marginBottom: 4 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 6px', marginBottom: 2 }}>
-              <ChevronDown size={10} color="#676879" />
-              <img src={iconAgents} width={13} height={13} alt="" style={{ opacity: 1 }} />
-              <span style={{ fontSize: 12, fontWeight: 600, color: '#323338' }}>Agents</span>
+          <div style={{ marginBottom: 'var(--space-4)' as any }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' as any, padding: '4px 6px', marginBottom: 'var(--space-2)' as any }}>
+              <ChevronDown size={10} color="var(--text-secondary)" />
+              <img src={iconAgents} width={13} height={13} alt="" />
+              <span style={{ fontSize: 'var(--font-size-sm)' as any, fontWeight: 'var(--font-weight-semibold)' as any, color: 'var(--text-primary)' }}>Agents</span>
             </div>
             {agents.map((a, i) => {
               const W = animate ? motion.div : ('div' as any);
               const anim = animate ? { initial: { opacity: 0, x: -6 }, animate: { opacity: 1, x: 0 }, transition: { delay: 0.1 + i * 0.06 } } : {};
-              return (<W key={a.name} {...anim}><div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 6px 4px 22px', borderRadius: 4, cursor: 'pointer' }}><span style={{ fontSize: 13, lineHeight: 1 }}>{a.emoji}</span><span style={{ fontSize: 12, color: '#323338', flex: 1 }}>{a.name}</span><span style={{ fontSize: 10, color: a.color }}>Ready</span></div></W>);
+              return (<W key={a.name} {...anim}><div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-6)' as any, padding: '4px 6px 4px 22px', borderRadius: 'var(--radius-sm)' as any, cursor: 'pointer' }}><span style={{ fontSize: 'var(--font-size-base)' as any, lineHeight: 1 }}>{a.emoji}</span><span style={{ fontSize: 'var(--font-size-sm)' as any, color: 'var(--text-primary)', flex: 1 }}>{a.name}</span><span style={{ fontSize: 'var(--font-size-xs)' as any, color: a.color }}>Ready</span></div></W>);
             })}
           </div>
         )}
-
         {boards.length > 0 && (
-          <div style={{ borderTop: '1px solid #E7E9EF', paddingTop: 6 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 6px', marginBottom: 2 }}>
-              <ChevronDown size={10} color="#676879" />
-              <span style={{ fontSize: 12, fontWeight: 600, color: '#323338' }}>HR Department</span>
+          <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: 'var(--space-6)' as any }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' as any, padding: '4px 6px', marginBottom: 'var(--space-2)' as any }}>
+              <ChevronDown size={10} color="var(--text-secondary)" />
+              <span style={{ fontSize: 'var(--font-size-sm)' as any, fontWeight: 'var(--font-weight-semibold)' as any, color: 'var(--text-primary)' }}>HR Department</span>
             </div>
             {boards.map((b) => (
-              <div key={b.name} style={{
-                display: 'flex', alignItems: 'center', gap: 6,
-                padding: `3px 6px 3px ${b.indent ? 32 : 22}px`, borderRadius: 4, marginBottom: 1, cursor: 'pointer',
-                background: b.active ? '#D0E4FF' : 'transparent',
-              }}>
-                {b.color && !b.indent && <div style={{ width: 6, height: 6, borderRadius: '50%', background: b.color, flexShrink: 0 }} />}
-                {b.indent && <FileText size={12} color={b.active ? '#0073EA' : '#676879'} />}
-                <span style={{ fontSize: 12, color: b.active ? '#0073EA' : '#323338', fontWeight: b.active ? 600 : 400 }}>{b.name}</span>
+              <div key={b.name} style={{ display: 'flex', alignItems: 'center', gap: 7, padding: `4px 6px 4px ${b.indent ? 32 : 22}px`, borderRadius: 'var(--radius-sm)' as any, marginBottom: 1, cursor: 'pointer', background: b.active ? 'var(--surface-selected)' : 'transparent' }}>
+                {b.color && !b.indent && <div style={{ width: 6, height: 6, borderRadius: 'var(--radius-full)' as any, background: b.color, flexShrink: 0 }} />}
+                {b.indent && <FileText size={13} color={b.active ? 'var(--text-brand)' : 'var(--text-secondary)'} />}
+                <span style={{ fontSize: 'var(--font-size-base)' as any, color: b.active ? 'var(--text-brand)' : 'var(--text-primary)', fontWeight: b.active ? 'var(--font-weight-semibold)' as any : 'var(--font-weight-regular)' as any }}>{b.name}</span>
               </div>
             ))}
           </div>
@@ -185,47 +193,52 @@ export function AICentricSidebar({ agents = [], boards = [], workspaceName = 'No
 /* ═══ TOP BAR ═══ */
 export function AICentricTopBar({ userName, userColor = '#9D50DD' }: { userName?: string; userColor?: string }) {
   return (
-    <div style={{ display: 'flex', padding: '8px 20px', alignItems: 'center', gap: 16, alignSelf: 'stretch', background: 'var(--chrome-surface-color)' }}>
-      {/* Left — monday colored logo */}
-      <div style={{ width: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+    <div style={{
+      display: 'flex',
+      padding: 'var(--topbar-padding)' as any,
+      alignItems: 'center',
+      gap: 'var(--topbar-gap)' as any,
+      alignSelf: 'stretch',
+      background: 'var(--topbar-bg)',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', width: 100 }}>
         <img src={iconMondayLogo} width={24} height={24} alt="monday" />
       </div>
-
-      {/* Center — search bar */}
       <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-        <div style={{ display: 'flex', width: 400, height: 32, padding: '4px 4px 4px 16px', alignItems: 'center', gap: 8, borderRadius: 100, background: 'var(--primary-background-hover-color)' }}>
-          <img src={iconSearch} width={14} height={14} alt="" style={{ opacity: 1 }} />
-          <span style={{ fontSize: 13, color: '#676879', fontFamily: ff }}>Search or ask anything...</span>
+        <div style={{
+          display: 'flex',
+          width: 'var(--searchbar-width)' as any,
+          height: 'var(--searchbar-height)' as any,
+          padding: 'var(--space-4) var(--space-4) var(--space-4) var(--space-16)' as any,
+          alignItems: 'center',
+          gap: 'var(--space-8)' as any,
+          borderRadius: 'var(--searchbar-radius)' as any,
+          background: 'var(--searchbar-bg)',
+        }}>
+          <img src={iconSearch} width={14} height={14} alt="" />
+          <span style={{ fontSize: 'var(--font-size-base)' as any, color: 'var(--text-secondary)', fontFamily: 'var(--font-body)' }}>Search or ask anything...</span>
         </div>
       </div>
-
-      {/* Right — icons (thinner stroke, 16px) */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
-        {/* Notification bell with badge dot */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-10)' as any, flexShrink: 0 }}>
         <div style={{ position: 'relative', cursor: 'pointer' }}>
-          <img src={iconNotifications} width={16} height={16} alt="" style={{ opacity: 1 }} />
-          <div style={{ position: 'absolute', top: -1, right: -1, width: 6, height: 6, borderRadius: '50%', background: '#E2445C', border: '1.5px solid #fff' }} />
+          <img src={iconNotifications} width={16} height={16} alt="" />
+          <div style={{ position: 'absolute', top: -1, right: -1, width: 6, height: 6, borderRadius: 'var(--radius-full)' as any, background: 'var(--color-error)', border: '1.5px solid var(--surface-chrome)' }} />
         </div>
-        {/* Inbox with badge dot */}
         <div style={{ position: 'relative', cursor: 'pointer' }}>
-          <img src={iconInbox} width={16} height={16} alt="" style={{ opacity: 1 }} />
-          <div style={{ position: 'absolute', top: -1, right: -1, width: 6, height: 6, borderRadius: '50%', background: '#E2445C', border: '1.5px solid #fff' }} />
+          <img src={iconInbox} width={16} height={16} alt="" />
+          <div style={{ position: 'absolute', top: -1, right: -1, width: 6, height: 6, borderRadius: 'var(--radius-full)' as any, background: 'var(--color-error)', border: '1.5px solid var(--surface-chrome)' }} />
         </div>
-        <img src={iconInvite} width={16} height={16} alt="" style={{ opacity: 0.5, cursor: 'pointer' }} />
-        <img src={iconHelp} width={16} height={16} alt="" style={{ opacity: 0.5, cursor: 'pointer' }} />
-        {/* Tighter group: grid + avatar pill */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 2 }}>
-          {/* 3x3 grid */}
+        <img src={iconInvite} width={16} height={16} alt="" style={{ cursor: 'pointer' }} />
+        <img src={iconHelp} width={16} height={16} alt="" style={{ cursor: 'pointer' }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-6)' as any, marginLeft: 'var(--space-2)' as any }}>
           <div style={{ width: 16, height: 16, display: 'grid', gridTemplateColumns: 'repeat(3, 3px)', gap: '2px', alignContent: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-            {[...Array(9)].map((_, i) => <div key={i} style={{ width: 3, height: 3, borderRadius: 0.5, background: '#676879', opacity: 1 }} />)}
+            {[...Array(9)].map((_, i) => <div key={i} style={{ width: 3, height: 3, borderRadius: 'var(--radius-xs)' as any, background: 'var(--text-secondary)' }} />)}
           </div>
-          {/* User avatar — plain circle, no border/ring */}
           <div style={{ position: 'relative' }}>
-            <div style={{ width: 28, height: 28, borderRadius: '50%', overflow: 'hidden' }}>
+            <div style={{ width: 'var(--avatar-size-md)' as any, height: 'var(--avatar-size-md)' as any, borderRadius: 'var(--radius-full)' as any, overflow: 'hidden' }}>
               <img src={imgAvatar} width={28} height={28} style={{ objectFit: 'cover', display: 'block' }} alt="" />
             </div>
-            {/* Green online status dot */}
-            <div style={{ position: 'absolute', bottom: 0, right: 0, width: 8, height: 8, borderRadius: '50%', background: '#00CA72', border: '2px solid #fff' }} />
+            <div style={{ position: 'absolute', bottom: 0, right: 0, width: 8, height: 8, borderRadius: 'var(--radius-full)' as any, background: 'var(--color-success)', border: '2px solid var(--surface-chrome)' }} />
           </div>
         </div>
       </div>
