@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 import { WorkspacePage } from './components/WorkspacePage';
 import { PreviewPage } from './components/PreviewPage';
-import { HandshakePage } from './components/HandshakePage';
 import { TransitionPage } from './components/TransitionPage';
 import { AgentRunPage } from './components/AgentRunPage';
 import { NewHomePage } from './components/NewHomePage';
@@ -13,9 +12,8 @@ const base = import.meta.env.BASE_URL;
 export const router = createBrowserRouter([
   /* Six-Act Onboarding Flow */
   { path: '/',           Component: WorkspacePage },     /* Act 0: The Invitation (banner) */
-  { path: '/preview',    Component: PreviewPage },       /* Act 1: The Pitch (dark modal) */
-  { path: '/handshake',  Component: HandshakePage },     /* Act 2: The Handshake (welcome) */
-  { path: '/transition', Component: TransitionPage },    /* Acts 3-6: Setup + Tour + First Win */
+  { path: '/preview',    Component: PreviewPage },       /* Loader: upgrading workspace */
+  { path: '/transition', Component: TransitionPage },    /* Sidekick setup conversation */
 
   /* Legacy routes (kept for backwards compat) */
   { path: '/agent-run',  Component: AgentRunPage },
