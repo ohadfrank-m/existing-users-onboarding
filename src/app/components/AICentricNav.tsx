@@ -124,7 +124,7 @@ interface SidebarProps { agents?: { name: string; emoji: string; color: string }
 
 export function AICentricSidebar({ agents = [], boards = [], workspaceName = 'Novella', animate = false }: SidebarProps) {
   return (
-    <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', background: '#fff', overflow: 'hidden', fontFamily: ff }}>
+    <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', borderRight: '0.5px solid var(--layout-border-color)', background: 'var(--primary-background-color)', overflow: 'hidden', fontFamily: ff }}>
       {/* Header */}
       <div style={{ padding: '0 12px', marginBottom: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>

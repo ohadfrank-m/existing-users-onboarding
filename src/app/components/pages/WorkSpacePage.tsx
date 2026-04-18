@@ -18,7 +18,7 @@ export function WorkSpacePage() {
   return (
     <>
       {/* Sidebar */}
-      <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', background: '#fff', overflow: 'hidden', fontFamily: ff, flexShrink: 0 }}>
+      <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', borderRight: '0.5px solid var(--layout-border-color)', background: 'var(--primary-background-color)', overflow: 'hidden', fontFamily: ff, flexShrink: 0 }}>
 
         {/* Workspace dropdown + add button */}
         <div style={{ width: '100%' }}>

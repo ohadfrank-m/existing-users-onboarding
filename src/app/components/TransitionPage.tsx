@@ -264,7 +264,7 @@ export function TransitionPage() {
             </div>
 
             {/* SIDEBAR */}
-            <div style={{ zIndex: phase === 'tour-sidebar' ? 55 : 10, position: 'relative', width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', background: '#fff', overflow: 'hidden', flexShrink: 0 }}>
+            <div style={{ zIndex: phase === 'tour-sidebar' ? 55 : 10, position: 'relative', width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', borderRight: '0.5px solid var(--layout-border-color)', background: 'var(--primary-background-color)', overflow: 'hidden', flexShrink: 0 }}>
               {phase === 'tour-sidebar' && <div style={{ position: 'absolute', inset: -2, borderRadius: '16px 0 0 0', border: '2px solid rgba(0,115,234,0.4)', pointerEvents: 'none', animation: 'pulseGlow 2s ease-in-out infinite' }} />}
               <div style={{ width: '100%' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
