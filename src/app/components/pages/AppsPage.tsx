@@ -19,8 +19,8 @@ export function AppsPage() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
             <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--secondary-text-color)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>Vibe Apps</span>
           </div>
-          <button style={{ width: '100%', background: 'var(--primary-color)', border: 'none', borderRadius: 6, padding: '8px 14px', color: '#fff', fontSize: 13, fontWeight: 500, fontFamily: ff, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}>
-            <Plus size={14} /> New vibe app
+          <button style={{ width: '100%', background: '#fff', border: '1px solid #0073EA', borderRadius: 4, padding: '7px 12px', color: '#0073EA', fontSize: 13, fontWeight: 500, fontFamily: ff, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}>
+            <Plus size={13} /> New vibe app
           </button>
         </div>
         <div style={{ padding: '0 14px' }}>
