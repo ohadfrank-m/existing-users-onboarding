@@ -419,7 +419,7 @@ export function TransitionPage() {
                         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
                           <div style={{ background: '#F6F7FB', borderRadius: 8, padding: '12px', marginBottom: 12 }}>
                             <span style={{ fontSize: 13, fontWeight: 600, display: 'block', marginBottom: 6 }}>Followup actions</span>
-                            <button onClick={() => navigate('/agent-run')} style={{ width: '100%', background: '#fff', border: '1px solid var(--layout-border-color)', borderRadius: 6, padding: '8px 12px', cursor: 'pointer', fontFamily: ff, fontSize: 13, color: 'var(--primary-text-color)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
+                            <button onClick={() => navigate('/platform')} style={{ width: '100%', background: '#fff', border: '1px solid var(--layout-border-color)', borderRadius: 6, padding: '8px 12px', cursor: 'pointer', fontFamily: ff, fontSize: 13, color: 'var(--primary-text-color)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                               <ArrowRight size={13} color="var(--primary-color)" /> Run Screening Agent on pipeline
                             </button>
                             <button style={{ width: '100%', background: '#fff', border: '1px solid var(--layout-border-color)', borderRadius: 6, padding: '8px 12px', cursor: 'pointer', fontFamily: ff, fontSize: 13, color: 'var(--primary-text-color)', display: 'flex', alignItems: 'center', gap: 6 }}>

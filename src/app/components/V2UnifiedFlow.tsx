@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, ChangeEvent } from 'react';
+import { useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Plus, Bot, Sparkles, Search, Bell, Users, ChevronDown, ArrowRight,
@@ -135,6 +136,7 @@ function SKMsg({ name, text, opacity = 1 }: { name: string; text: string; opacit
 }
 
 export function V2UnifiedFlow() {
+  const navigate = useNavigate();
   const [phase, setPhase] = useState('p1');
   const [nameInput, setNameInput] = useState('Sidekick');
   const [skName, setSkName] = useState('');
