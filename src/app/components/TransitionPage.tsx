@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { Plus, Upload } from 'lucide-react';
 import { PERSONA } from '../data';
+import sidekickClosedImg from '../../assets/sidekick-closed.png';
 
 const ff = 'var(--font-body)';
 
@@ -286,38 +287,23 @@ export function TransitionPage() {
           </div>
         </div>
 
-      {/* Transition animation — Sidekick circle moves to bottom-right */}
+      {/* Transition — Sidekick circle moves to bottom-right, then navigate */}
       <AnimatePresence>
         {transitioning && (
           <motion.div key="transition-overlay"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            style={{ position: 'fixed', inset: 0, zIndex: 200, background: 'var(--surface-content)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-16)' }}>
+            transition={{ duration: 0.5 }}
+            style={{ position: 'fixed', inset: 0, zIndex: 200, background: 'var(--surface-content)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
 
-            {/* Sidekick circle → shrinks and moves to bottom-right where closed Sidekick lives */}
-            <motion.div
-              initial={{ scale: 1, x: 0, y: 0 }}
-              animate={{ scale: 0.5, x: 'calc(50vw - 56px)', y: 'calc(50vh - 56px)' }}
-              transition={{ duration: 1.4, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}
-              style={{ width: 100, height: 100, borderRadius: 'var(--radius-full)', background: 'var(--brand-ai-gradient)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 10 }}>
-              <div style={{ width: 90, height: 90, borderRadius: 'var(--radius-full)', background: selectedAvatar?.bg || AVATAR_OPTS[0].bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 40 }}>
-                {uploadedSrc ? <img src={uploadedSrc} width={90} height={90} style={{ borderRadius: 'var(--radius-full)', objectFit: 'cover' }} alt="" /> : (selectedAvatar?.emoji || AVATAR_OPTS[0].emoji)}
-              </div>
-            </motion.div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 12 }} animate={{ opacity: [0, 1, 1, 0] }}
-              transition={{ duration: 2, times: [0, 0.15, 0.7, 1] }}
-              style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--font-size-3xl)', fontWeight: 'var(--font-weight-medium)', color: 'var(--text-primary)', margin: 0 }}>
-              Setting up your workspace...
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0 }} animate={{ opacity: [0, 1, 1, 0] }}
-              transition={{ duration: 2, delay: 0.2, times: [0, 0.15, 0.7, 1] }}
-              style={{ fontSize: 'var(--font-size-lg)', color: 'var(--text-secondary)', margin: 0 }}>
-              {sidekickName} is preparing everything for you
-            </motion.p>
+            {/* Sidekick closed image moves to bottom-right */}
+            <motion.img
+              src={sidekickClosedImg}
+              initial={{ scale: 1, x: 0, y: 0, opacity: 1 }}
+              animate={{ scale: 0.6, x: 'calc(50vw - 48px)', y: 'calc(50vh - 48px)', opacity: 0.9 }}
+              transition={{ duration: 1.2, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
+              style={{ width: 80, height: 80, borderRadius: 'var(--radius-full)', position: 'relative', zIndex: 10 }}
+              alt=""
+            />
           </motion.div>
         )}
       </AnimatePresence>
