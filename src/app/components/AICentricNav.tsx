@@ -188,24 +188,39 @@ export function AICentricTopBar({ userName, userColor = '#9D50DD' }: { userName?
       {/* Center — search bar */}
       <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#F5F6F8', borderRadius: 6, padding: '6px 16px', width: 400, maxWidth: '50%' }}>
-          <img src={iconSearch} width={14} height={14} alt="" style={{ opacity: 0.45 }} />
+          <img src={iconSearch} width={14} height={14} alt="" style={{ opacity: 0.4 }} />
           <span style={{ fontSize: 13, color: '#676879', fontFamily: ff }}>Search or ask anything...</span>
         </div>
       </div>
 
-      {/* Right — icons */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
-        <img src={iconNotifications} width={18} height={18} alt="" style={{ opacity: 0.55, cursor: 'pointer' }} />
-        <img src={iconInbox} width={18} height={18} alt="" style={{ opacity: 0.55, cursor: 'pointer' }} />
-        <img src={iconInvite} width={18} height={18} alt="" style={{ opacity: 0.55, cursor: 'pointer' }} />
-        <img src={iconHelp} width={18} height={18} alt="" style={{ opacity: 0.55, cursor: 'pointer' }} />
-        {/* 3x3 grid */}
-        <div style={{ width: 18, height: 18, display: 'grid', gridTemplateColumns: 'repeat(3, 4px)', gap: '2px', alignContent: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-          {[...Array(9)].map((_, i) => <div key={i} style={{ width: 3, height: 3, borderRadius: 0.5, background: '#676879', opacity: 0.5 }} />)}
+      {/* Right — icons (thinner stroke, 16px) */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+        {/* Notification bell with badge dot */}
+        <div style={{ position: 'relative', cursor: 'pointer' }}>
+          <img src={iconNotifications} width={16} height={16} alt="" style={{ opacity: 0.5 }} />
+          <div style={{ position: 'absolute', top: -1, right: -1, width: 6, height: 6, borderRadius: '50%', background: '#E2445C', border: '1.5px solid #fff' }} />
         </div>
-        {/* User avatar — actual photo like in Figma */}
-        <div style={{ width: 26, height: 26, borderRadius: '50%', overflow: 'hidden', border: '2px solid #00CA72' }}>
-          <img src={imgAvatar} width={26} height={26} style={{ objectFit: 'cover' }} alt="" />
+        {/* Inbox with badge dot */}
+        <div style={{ position: 'relative', cursor: 'pointer' }}>
+          <img src={iconInbox} width={16} height={16} alt="" style={{ opacity: 0.5 }} />
+          <div style={{ position: 'absolute', top: -1, right: -1, width: 6, height: 6, borderRadius: '50%', background: '#E2445C', border: '1.5px solid #fff' }} />
+        </div>
+        <img src={iconInvite} width={16} height={16} alt="" style={{ opacity: 0.5, cursor: 'pointer' }} />
+        <img src={iconHelp} width={16} height={16} alt="" style={{ opacity: 0.5, cursor: 'pointer' }} />
+        {/* Tighter group: grid + avatar pill */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 2 }}>
+          {/* 3x3 grid */}
+          <div style={{ width: 16, height: 16, display: 'grid', gridTemplateColumns: 'repeat(3, 3px)', gap: '2px', alignContent: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+            {[...Array(9)].map((_, i) => <div key={i} style={{ width: 3, height: 3, borderRadius: 0.5, background: '#676879', opacity: 0.45 }} />)}
+          </div>
+          {/* Avatar in pill wrapper with green status dot */}
+          <div style={{ display: 'flex', alignItems: 'center', padding: '3px', background: '#F5F6F8', borderRadius: 16, position: 'relative' }}>
+            <div style={{ width: 26, height: 26, borderRadius: '50%', overflow: 'hidden' }}>
+              <img src={imgAvatar} width={26} height={26} style={{ objectFit: 'cover', display: 'block' }} alt="" />
+            </div>
+            {/* Green online status dot */}
+            <div style={{ position: 'absolute', bottom: 2, right: 2, width: 8, height: 8, borderRadius: '50%', background: '#00CA72', border: '2px solid #F5F6F8' }} />
+          </div>
         </div>
       </div>
     </div>

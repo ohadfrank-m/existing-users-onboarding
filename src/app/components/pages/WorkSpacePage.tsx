@@ -81,30 +81,41 @@ export function WorkSpacePage() {
 
       {/* Main content — DOCUMENT VIEW (not board) matching Workstream.png */}
       <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, border: '0.5px solid #D0D4E4', boxShadow: '0 4px 32px rgba(0,19,85,0.06)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-        {/* Doc toolbar */}
+        {/* Doc toolbar — matching reference */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 2, padding: '6px 20px', borderBottom: '1px solid #E7E9EF', flexShrink: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 8px', background: '#0073EA', borderRadius: 4, cursor: 'pointer', marginRight: 8 }}>
-            <Plus size={12} color="#fff" /><span style={{ fontSize: 12, fontWeight: 500, color: '#fff' }}>Add</span>
+          {/* Add button */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 10px', background: '#0073EA', borderRadius: 4, cursor: 'pointer', marginRight: 6 }}>
+            <Plus size={11} color="#fff" /><span style={{ fontSize: 12, fontWeight: 500, color: '#fff' }}>Add</span>
           </div>
-          <div style={{ width: 1, height: 18, background: '#E7E9EF', margin: '0 4px' }} />
-          <Undo2 size={15} color="#676879" style={{ cursor: 'pointer', padding: 4 }} />
-          <Redo2 size={15} color="#676879" style={{ cursor: 'pointer', padding: 4 }} />
-          <div style={{ width: 1, height: 18, background: '#E7E9EF', margin: '0 4px' }} />
-          <div style={{ display: 'flex', alignItems: 'center', gap: 2, padding: '3px 8px', borderRadius: 4, cursor: 'pointer' }}>
-            <Type size={13} color="#676879" /><span style={{ fontSize: 12, color: '#676879' }}>Large title</span><ChevronDown size={10} color="#676879" />
+          <div style={{ width: 1, height: 16, background: '#E7E9EF', margin: '0 4px' }} />
+          {/* Undo/Redo */}
+          <Undo2 size={14} color="#676879" style={{ cursor: 'pointer', padding: 3 }} />
+          <Redo2 size={14} color="#676879" style={{ cursor: 'pointer', padding: 3 }} />
+          <div style={{ width: 1, height: 16, background: '#E7E9EF', margin: '0 4px' }} />
+          {/* Heading selector — H1 not T */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 3, padding: '3px 8px', borderRadius: 4, cursor: 'pointer' }}>
+            <span style={{ fontSize: 12, fontWeight: 600, color: '#676879' }}>H1</span>
+            <span style={{ fontSize: 12, color: '#676879' }}>Large title</span>
+            <ChevronDown size={10} color="#676879" />
           </div>
-          <Bold size={14} color="#676879" style={{ cursor: 'pointer', padding: 4 }} />
-          <Italic size={14} color="#676879" style={{ cursor: 'pointer', padding: 4 }} />
-          <div style={{ width: 1, height: 18, background: '#E7E9EF', margin: '0 4px' }} />
-          <AlignLeft size={14} color="#676879" style={{ cursor: 'pointer', padding: 4 }} />
-          <List size={14} color="#676879" style={{ cursor: 'pointer', padding: 4 }} />
-          <CheckSquare size={14} color="#676879" style={{ cursor: 'pointer', padding: 4 }} />
-          <div style={{ width: 1, height: 18, background: '#E7E9EF', margin: '0 4px' }} />
+          <div style={{ width: 1, height: 16, background: '#E7E9EF', margin: '0 4px' }} />
+          {/* Alignment dropdown — single button with chevron */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 2, padding: '3px 4px', borderRadius: 4, cursor: 'pointer' }}>
+            <AlignLeft size={13} color="#676879" />
+            <ChevronDown size={9} color="#676879" />
+          </div>
+          {/* List buttons — bullet, numbered, checklist */}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#676879" strokeWidth="1.5" strokeLinecap="round" style={{ cursor: 'pointer', padding: 3 }}><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1.5" fill="#676879" stroke="none"/><circle cx="4" cy="12" r="1.5" fill="#676879" stroke="none"/><circle cx="4" cy="18" r="1.5" fill="#676879" stroke="none"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#676879" strokeWidth="1.5" strokeLinecap="round" style={{ cursor: 'pointer', padding: 3 }}><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><text x="3" y="8" fontSize="8" fill="#676879" stroke="none" fontFamily="sans-serif">1</text><text x="3" y="14" fontSize="8" fill="#676879" stroke="none" fontFamily="sans-serif">2</text><text x="3" y="20" fontSize="8" fill="#676879" stroke="none" fontFamily="sans-serif">3</text></svg>
+          <CheckSquare size={13} color="#676879" style={{ cursor: 'pointer', padding: 3 }} />
+          <div style={{ width: 1, height: 16, background: '#E7E9EF', margin: '0 4px' }} />
+          {/* Style dropdown */}
           <span style={{ fontSize: 12, color: '#676879', padding: '3px 6px', cursor: 'pointer' }}>Style</span>
-          <AtSign size={14} color="#676879" style={{ cursor: 'pointer', padding: 4 }} />
-          <div style={{ display: 'flex', alignItems: 'center', gap: 3, padding: '3px 8px', borderRadius: 4, cursor: 'pointer', marginLeft: 'auto' }}>
-            <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 1 L11.8 8.2 L19 10 L11.8 11.8 L10 19 L8.2 11.8 L1 10 L8.2 8.2 Z" fill="#8181FF" /></svg>
-            <span style={{ fontSize: 12, color: '#676879' }}>AI</span>
+          {/* @ mention */}
+          <AtSign size={13} color="#676879" style={{ cursor: 'pointer', padding: 3 }} />
+          {/* AI sparkle icon — no text label */}
+          <div style={{ cursor: 'pointer', marginLeft: 'auto', padding: 3 }}>
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 1 L11.8 8.2 L19 10 L11.8 11.8 L10 19 L8.2 11.8 L1 10 L8.2 8.2 Z" fill="url(#aiToolbar)" /><defs><linearGradient id="aiToolbar" x1="0" y1="0" x2="20" y2="20"><stop offset="0%" stopColor="#FB275D"/><stop offset="33%" stopColor="#FFCC00"/><stop offset="66%" stopColor="#00CA72"/><stop offset="100%" stopColor="#8181FF"/></linearGradient></defs></svg>
           </div>
         </div>
 
