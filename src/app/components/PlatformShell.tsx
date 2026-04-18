@@ -16,7 +16,6 @@ export function PlatformShell() {
   const [activeNav, setActiveNav] = useState<NavId>('workspace');
   const [sidekickOpen, setSidekickOpen] = useState(false);
   const [welcomeMessages, setWelcomeMessages] = useState<SKMessageData[]>([]);
-  const [searchParams] = useSearchParams();
   const panelRef = useRef<HTMLDivElement>(null);
   const hasShownWelcome = useRef(false);
 
