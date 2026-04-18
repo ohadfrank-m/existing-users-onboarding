@@ -14,7 +14,7 @@ export function AppsPage() {
   return (
     <>
       {/* Sidebar */}
-      <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', background: 'var(--chrome-surface-color)', fontFamily: ff, flexShrink: 0 }}>
+      <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', background: '#fff', fontFamily: ff, flexShrink: 0 }}>
         <div style={{ padding: '0 14px', marginBottom: 12 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
             <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--secondary-text-color)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>Vibe Apps</span>

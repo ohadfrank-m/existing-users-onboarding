@@ -15,7 +15,7 @@ export function AgentsPage() {
   return (
     <>
       {/* Sidebar — matching AgentsHome.png */}
-      <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', background: 'var(--chrome-surface-color)', fontFamily: ff, flexShrink: 0 }}>
+      <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', background: '#fff', fontFamily: ff, flexShrink: 0 }}>
         <div style={{ padding: '0 12px', marginBottom: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
             <span style={{ fontSize: 11, fontWeight: 600, color: '#676879', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Agents</span>

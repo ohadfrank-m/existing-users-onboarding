@@ -86,7 +86,7 @@ export function AICentricIconRail({ animate = false, activeItem = 'workspace', o
                 {item.custom ? (
                   <SidekickPinwheel size={18} active={isActive} />
                 ) : (
-                  <img src={item.src} width={18} height={18} alt="" style={{ filter: isActive ? activeFilter : 'none', opacity: isActive ? 1 : 0.65 }} />
+                  <img src={item.src} width={18} height={18} alt="" style={{ filter: isActive ? activeFilter : 'none', opacity: 1 }} />
                 )}
                 <span style={{
                   fontSize: 9, fontFamily: ff, lineHeight: '11px',
@@ -110,7 +110,7 @@ export function AICentricIconRail({ animate = false, activeItem = 'workspace', o
           onClick={() => onNavClick?.('more')}
           style={{ width: 36, height: 32, borderRadius: 6, border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', background: 'transparent', padding: 0 }}
         >
-          <img src={iconMore} width={18} height={18} alt="" style={{ opacity: 0.65 }} />
+          <img src={iconMore} width={18} height={18} alt="" style={{ opacity: 1 }} />
         </button>
         <span style={{ fontSize: 9, fontFamily: ff, color: '#676879', marginTop: 1 }}>More</span>
       </div>
@@ -124,7 +124,7 @@ interface SidebarProps { agents?: { name: string; emoji: string; color: string }
 
 export function AICentricSidebar({ agents = [], boards = [], workspaceName = 'Novella', animate = false }: SidebarProps) {
   return (
-    <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', background: 'var(--chrome-surface-color)', overflow: 'hidden', fontFamily: ff }}>
+    <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', background: '#fff', overflow: 'hidden', fontFamily: ff }}>
       {/* Header */}
       <div style={{ padding: '0 12px', marginBottom: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
@@ -147,7 +147,7 @@ export function AICentricSidebar({ agents = [], boards = [], workspaceName = 'No
           <div style={{ marginBottom: 4 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 6px', marginBottom: 2 }}>
               <ChevronDown size={10} color="#676879" />
-              <img src={iconAgents} width={13} height={13} alt="" style={{ opacity: 0.55 }} />
+              <img src={iconAgents} width={13} height={13} alt="" style={{ opacity: 1 }} />
               <span style={{ fontSize: 12, fontWeight: 600, color: '#323338' }}>Agents</span>
             </div>
             {agents.map((a, i) => {
@@ -194,7 +194,7 @@ export function AICentricTopBar({ userName, userColor = '#9D50DD' }: { userName?
       {/* Center — search bar */}
       <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
         <div style={{ display: 'flex', width: 400, height: 32, padding: '4px 4px 4px 16px', alignItems: 'center', gap: 8, borderRadius: 100, background: 'var(--primary-background-hover-color)' }}>
-          <img src={iconSearch} width={14} height={14} alt="" style={{ opacity: 0.4 }} />
+          <img src={iconSearch} width={14} height={14} alt="" style={{ opacity: 1 }} />
           <span style={{ fontSize: 13, color: '#676879', fontFamily: ff }}>Search or ask anything...</span>
         </div>
       </div>
@@ -203,12 +203,12 @@ export function AICentricTopBar({ userName, userColor = '#9D50DD' }: { userName?
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
         {/* Notification bell with badge dot */}
         <div style={{ position: 'relative', cursor: 'pointer' }}>
-          <img src={iconNotifications} width={16} height={16} alt="" style={{ opacity: 0.5 }} />
+          <img src={iconNotifications} width={16} height={16} alt="" style={{ opacity: 1 }} />
           <div style={{ position: 'absolute', top: -1, right: -1, width: 6, height: 6, borderRadius: '50%', background: '#E2445C', border: '1.5px solid #fff' }} />
         </div>
         {/* Inbox with badge dot */}
         <div style={{ position: 'relative', cursor: 'pointer' }}>
-          <img src={iconInbox} width={16} height={16} alt="" style={{ opacity: 0.5 }} />
+          <img src={iconInbox} width={16} height={16} alt="" style={{ opacity: 1 }} />
           <div style={{ position: 'absolute', top: -1, right: -1, width: 6, height: 6, borderRadius: '50%', background: '#E2445C', border: '1.5px solid #fff' }} />
         </div>
         <img src={iconInvite} width={16} height={16} alt="" style={{ opacity: 0.5, cursor: 'pointer' }} />
@@ -217,7 +217,7 @@ export function AICentricTopBar({ userName, userColor = '#9D50DD' }: { userName?
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 2 }}>
           {/* 3x3 grid */}
           <div style={{ width: 16, height: 16, display: 'grid', gridTemplateColumns: 'repeat(3, 3px)', gap: '2px', alignContent: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-            {[...Array(9)].map((_, i) => <div key={i} style={{ width: 3, height: 3, borderRadius: 0.5, background: '#676879', opacity: 0.45 }} />)}
+            {[...Array(9)].map((_, i) => <div key={i} style={{ width: 3, height: 3, borderRadius: 0.5, background: '#676879', opacity: 1 }} />)}
           </div>
           {/* User avatar — plain circle, no border/ring */}
           <div style={{ position: 'relative' }}>
