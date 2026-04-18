@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import { AICentricTopBar, AICentricIconRail } from './AICentricNav';
 import { PERSONA } from '../data';
 
 const ff = 'var(--font-body)';
@@ -76,14 +75,7 @@ export function PreviewPage() {
     <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden', fontFamily: ff, background: 'var(--surface-chrome)' }}>
       <style>{`@keyframes skelShimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }`}</style>
 
-      {/* Topbar */}
-      <AICentricTopBar userName={PERSONA.teamMembers[0].initials} userColor={PERSONA.teamMembers[0].color} />
-
-      {/* Body */}
-      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
-        <AICentricIconRail activeItem="workspace" />
-
-        {/* Main area */}
+      {/* Full-page — no topbar, no icon rail */}
         <motion.div
           initial={false}
           animate={exiting ? { opacity: 0, scale: 0.97, y: -24 } : { opacity: 1, scale: 1, y: 0 }}
@@ -190,7 +182,6 @@ export function PreviewPage() {
             </AnimatePresence>
           </div>
         </motion.div>
-      </div>
     </div>
   );
 }

@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
-import { useSearchParams } from 'react-router';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { AICentricIconRail, AICentricTopBar } from './AICentricNav';
 import { SidekickPanel, SKMessageData } from './SidekickPanel';
 import { WorkSpacePage } from './pages/WorkSpacePage';
@@ -23,43 +22,59 @@ export function PlatformShell() {
 
   const skName = localStorage.getItem('sidekick_name') || 'Sidekick';
 
+  const [streamingText, setStreamingText] = useState('');
+  const [streamDone, setStreamDone] = useState(false);
+
+  const fullWelcomeText = `Welcome to your new workspace, ${PERSONA.firstName}! Everything is set up and ready to go. Your boards and documents have been migrated, and I've configured three AI agents tailored to your hiring workflow.`;
+
   // Auto-open Sidekick on first arrival from onboarding
   useEffect(() => {
     if (hasShownWelcome.current) return;
 
-    // Check if user just came from onboarding (flag set by TransitionPage)
     const fromOnboarding = localStorage.getItem('onboarding_complete') === 'true';
     if (fromOnboarding) {
       hasShownWelcome.current = true;
       localStorage.removeItem('onboarding_complete');
       setSidekickOpen(true);
 
-      // Stream welcome messages with delays
-      const msgs: SKMessageData[] = [];
-
-      setTimeout(() => {
-        msgs.push({
-          type: 'sidekick',
-          text: `Welcome to your new workspace, ${PERSONA.firstName}! Everything is set up and ready to go.`,
-          thinking: 'Analyzing workspace context: Recruitment Pipeline active, 8 new candidates in queue, 3 agents configured and ready.',
-          contentCard: {
-            title: "What's ready for you",
-            items: [
-              { label: 'Your boards and documents — all migrated', color: 'var(--color-success)' },
-              { label: 'Screening Agent — ready to run', color: 'var(--agent-screening)' },
-              { label: 'Scheduling Agent — ready to run', color: 'var(--agent-scheduling)' },
-              { label: 'Sourcing Agent — ready to run', color: 'var(--agent-sourcing)' },
-            ],
-          },
-          actions: [
-            { label: 'Run Screening Agent on 8 new candidates' },
-            { label: 'Explore your AI agents' },
-            { label: 'Browse your workspace' },
-            { label: 'Dismiss', terminal: true },
-          ],
-        });
-        setWelcomeMessages([...msgs]);
+      // Stream the welcome text word by word
+      const words = fullWelcomeText.split(' ');
+      let i = 0;
+      const delay = setTimeout(() => {
+        const iv = setInterval(() => {
+          i++;
+          setStreamingText(words.slice(0, i).join(' '));
+          if (i >= words.length) {
+            clearInterval(iv);
+            // After streaming completes, show the full message with cards
+            setTimeout(() => {
+              setWelcomeMessages([{
+                type: 'sidekick',
+                text: fullWelcomeText,
+                thinking: 'Analyzing workspace context: Recruitment Pipeline active, 8 new candidates in queue, 3 agents configured and ready.',
+                contentCard: {
+                  title: "What's ready for you",
+                  items: [
+                    { label: 'Your boards and documents — all migrated', color: 'var(--color-success)' },
+                    { label: 'Screening Agent — ready to run', color: 'var(--agent-screening)' },
+                    { label: 'Scheduling Agent — ready to run', color: 'var(--agent-scheduling)' },
+                    { label: 'Sourcing Agent — ready to run', color: 'var(--agent-sourcing)' },
+                  ],
+                },
+                actions: [
+                  { label: 'Run Screening Agent on 8 new candidates' },
+                  { label: 'Explore your AI agents' },
+                  { label: 'Browse your workspace' },
+                  { label: 'Dismiss', terminal: true },
+                ],
+              }]);
+              setStreamDone(true);
+            }, 400);
+          }
+        }, 45);
+        return () => clearInterval(iv);
       }, 800);
+      return () => clearTimeout(delay);
     }
   }, []);
 
@@ -109,7 +124,7 @@ export function PlatformShell() {
           <SidekickPanel
             name={skName}
             scope="Recruitment Pipeline"
-            messages={welcomeMessages}
+            messages={streamDone ? welcomeMessages : (streamingText ? [{ type: 'sidekick' as const, text: streamingText }] : [])}
             userInitials={PERSONA.teamMembers[0].initials}
             userColor={PERSONA.teamMembers[0].color}
             showGradientBorder

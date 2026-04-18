@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { Plus, Upload } from 'lucide-react';
-import { AICentricTopBar, AICentricIconRail } from './AICentricNav';
 import { PERSONA } from '../data';
 
 const ff = 'var(--font-body)';
@@ -157,12 +156,21 @@ export function TransitionPage() {
   const s3m1 = useStreamText("I've been looking at your workspace while we were setting up — your boards, your team, your data.", 45, 500, step >= 3, step > 3);
   const s3m2 = useStreamText("I've already started creating agents tailored to your workflow. Let me show you what's new.", 45, 300, s3m1.done, step > 3);
 
+  const [transitioning, setTransitioning] = useState(false);
+
   useEffect(() => {
-    if (step === 3 && s3m2.done) {
-      const t = setTimeout(() => { localStorage.setItem('onboarding_complete', 'true'); navigate('/platform'); }, 2000);
+    if (step === 3 && s3m2.done && !transitioning) {
+      const t = setTimeout(() => setTransitioning(true), 1500);
       return () => clearTimeout(t);
     }
-  }, [step, s3m2.done, navigate]);
+  }, [step, s3m2.done, transitioning]);
+
+  useEffect(() => {
+    if (transitioning) {
+      const t = setTimeout(() => { localStorage.setItem('onboarding_complete', 'true'); navigate('/platform'); }, 2500);
+      return () => clearTimeout(t);
+    }
+  }, [transitioning, navigate]);
 
   // Scroll during streaming
   const streamCount = [s1m1, s1m2, s1m3, s2m1, s3m1, s3m2].reduce((n, s) => n + s.displayed.split(' ').length, 0);
@@ -172,21 +180,13 @@ export function TransitionPage() {
     <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden', fontFamily: ff, background: 'var(--surface-chrome)' }}>
       <style>{`@keyframes dotPulse { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } } @keyframes rotateGradient { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
 
-      {/* Topbar */}
-      <AICentricTopBar userName={PERSONA.teamMembers[0].initials} userColor={PERSONA.teamMembers[0].color} />
-
-      {/* Body */}
-      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
-        <AICentricIconRail activeItem="sidekick" />
-
-        {/* Main area — centered conversation */}
-        <div style={{
-          flex: 1, overflowY: 'auto', display: 'flex', justifyContent: 'center',
-          padding: 'var(--space-48) var(--space-24) var(--space-64)',
-          borderTopLeftRadius: 'var(--radius-lg)',
-          background: 'var(--surface-content)',
-          scrollBehavior: 'smooth',
-        }}>
+      {/* Full-page conversation — no topbar, no icon rail */}
+      <div style={{
+        flex: 1, overflowY: 'auto', display: 'flex', justifyContent: 'center',
+        padding: 'var(--space-48) var(--space-24) var(--space-64)',
+        background: 'var(--surface-content)',
+        scrollBehavior: 'smooth',
+      }}>
           <div style={{ width: 500, maxWidth: '100%', display: 'flex', flexDirection: 'column', gap: 'var(--space-24)' }}>
 
             {/* ═══ STEP 1: Name ═══ */}
@@ -285,7 +285,91 @@ export function TransitionPage() {
             <div ref={bottomRef} style={{ height: 1, flexShrink: 0 }} />
           </div>
         </div>
-      </div>
+
+      {/* Transition animation overlay */}
+      <AnimatePresence>
+        {transitioning && (
+          <motion.div
+            key="transition-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+            style={{
+              position: 'fixed', inset: 0, zIndex: 200,
+              background: 'var(--surface-content)',
+              display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center',
+              gap: 'var(--space-16)',
+            }}
+          >
+            {/* Animated Sidekick avatar moving to top-right */}
+            <motion.div
+              initial={{ scale: 1, x: 0, y: 0 }}
+              animate={{ scale: 0.35, x: 'calc(50vw - 60px)', y: 'calc(-50vh + 40px)' }}
+              transition={{ duration: 1.2, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
+              style={{
+                width: 100, height: 100, borderRadius: 'var(--radius-full)',
+                background: 'var(--brand-ai-gradient)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}
+            >
+              <div style={{
+                width: 90, height: 90, borderRadius: 'var(--radius-full)',
+                background: selectedAvatar?.bg || AVATAR_OPTS[0].bg,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 40,
+              }}>
+                {uploadedSrc ? <img src={uploadedSrc} width={90} height={90} style={{ borderRadius: 'var(--radius-full)', objectFit: 'cover' }} alt="" /> : (selectedAvatar?.emoji || AVATAR_OPTS[0].emoji)}
+              </div>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.4 }}
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'var(--font-size-3xl)',
+                fontWeight: 'var(--font-weight-medium)',
+                color: 'var(--text-primary)',
+                margin: 0,
+              }}
+            >
+              Setting up your workspace...
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
+              style={{
+                fontSize: 'var(--font-size-lg)',
+                color: 'var(--text-secondary)',
+                margin: 0,
+              }}
+            >
+              {sidekickName} is preparing everything for you
+            </motion.p>
+
+            {/* Progress dots */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              style={{ display: 'flex', gap: 'var(--space-6)', marginTop: 'var(--space-8)' }}
+            >
+              {[0, 1, 2].map(i => (
+                <div key={i} style={{
+                  width: 8, height: 8, borderRadius: 'var(--radius-full)',
+                  background: 'var(--brand-primary)',
+                  animation: 'dotPulse 1.2s ease-in-out infinite',
+                  animationDelay: `${i * 0.2}s`,
+                }} />
+              ))}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
