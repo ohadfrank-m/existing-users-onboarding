@@ -18,15 +18,21 @@ import imgAvatar from '../../assets/agent-avatar-1.png';
 const ff = 'Figtree, sans-serif';
 const activeFilter = 'brightness(0) saturate(100%) invert(30%) sepia(98%) saturate(1800%) hue-rotate(196deg) brightness(97%) contrast(101%)';
 
-/* Sidekick icon — simplified gradient pinwheel that actually renders */
-const SidekickPinwheel = ({ size = 20 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
-    <path d="M8 18C8.5 18.3 9.1 18.4 9.6 18.2C10.2 18.1 10.6 17.8 11 17.3C11.3 16.8 11.5 16.2 11.5 15.7V15.1C11.5 14.7 11.4 14.3 11.4 13.8C11.2 12.2 10.5 10.5 9.3 9.3C8.1 8.1 6.5 7.2 4.9 7.0C4.4 6.9 3.8 6.9 3.3 6.8H2.7C2.1 6.8 1.6 6.9 1.1 7.2C0.6 7.5 0.2 8.0 0.1 8.6C-0.1 9.1 0.0 9.7 0.3 10.2C1.2 12.3 4.2 11.5 5.5 13.0C6.7 14.6 6.4 17.2 8 18Z" fill="#FAD239"/>
-    <path d="M10.2 0.3C9.7 0.0 9.1-0.1 8.6 0.1C8.1 0.2 7.6 0.5 7.2 1.0C6.9 1.5 6.8 2.0 6.7 2.6V3.2C6.8 3.6 6.8 4.0 6.8 4.5C7.0 6.1 7.7 7.8 8.9 9.0C10.1 10.2 11.7 11.0 13.3 11.3C13.9 11.4 14.4 11.4 14.9 11.5H15.5C16.1 11.5 16.7 11.4 17.2 11.1C17.6 10.8 18.0 10.3 18.1 9.7C18.3 9.2 18.2 8.6 17.9 8.1C17.0 6.0 14.0 6.8 12.7 5.3C11.5 3.7 11.8 1.1 10.2 0.3Z" fill="#6161FF"/>
-    <path d="M18 10.2C18.3 9.7 18.4 9.2 18.2 8.6C18.1 8.1 17.8 7.6 17.3 7.3C16.8 6.9 16.3 6.8 15.7 6.8H15.1C14.7 6.8 14.3 6.8 13.9 6.8C12.2 7.0 10.6 7.7 9.4 8.9C8.1 10.1 7.3 11.7 7.0 13.4C7.0 13.9 6.9 14.5 6.9 15.0V15.6C6.8 16.1 7.0 16.7 7.3 17.2C7.6 17.7 8.1 18.1 8.6 18.2C9.2 18.4 9.7 18.3 10.2 18.0C12.3 17.0 11.5 14.0 13.0 12.8C14.6 11.6 17.2 11.8 18 10.2Z" fill="#FF6B10"/>
-    <path d="M0.3 8.1C0.0 8.6-0.1 9.1 0.1 9.7C0.2 10.2 0.5 10.7 1.0 11.0C1.5 11.4 2.0 11.5 2.6 11.5H3.2C3.6 11.5 4.0 11.5 4.4 11.5C6.1 11.3 7.7 10.5 8.9 9.4C10.2 8.2 11.0 6.6 11.2 4.9C11.3 4.4 11.4 3.8 11.4 3.3V2.7C11.4 2.1 11.3 1.6 11.0 1.1C10.7 0.6 10.2 0.2 9.7 0.1C9.1-0.1 8.5 0.0 8.0 0.3C6.0 1.2 6.8 4.3 5.3 5.5C3.7 6.7 1.1 6.5 0.3 8.1Z" fill="#00C875"/>
-  </svg>
-);
+/* Sidekick icon — gradient when active, monochrome gray when inactive */
+const SidekickPinwheel = ({ size = 20, active = false }: { size?: number; active?: boolean }) => {
+  const c1 = active ? '#FAD239' : '#9A9BB0';
+  const c2 = active ? '#6161FF' : '#B0B1C3';
+  const c3 = active ? '#FF6B10' : '#A8A9BC';
+  const c4 = active ? '#00C875' : '#C0C1D0';
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+      <path d="M8 18C8.5 18.3 9.1 18.4 9.6 18.2C10.2 18.1 10.6 17.8 11 17.3C11.3 16.8 11.5 16.2 11.5 15.7V15.1C11.5 14.7 11.4 14.3 11.4 13.8C11.2 12.2 10.5 10.5 9.3 9.3C8.1 8.1 6.5 7.2 4.9 7.0C4.4 6.9 3.8 6.9 3.3 6.8H2.7C2.1 6.8 1.6 6.9 1.1 7.2C0.6 7.5 0.2 8.0 0.1 8.6C-0.1 9.1 0.0 9.7 0.3 10.2C1.2 12.3 4.2 11.5 5.5 13.0C6.7 14.6 6.4 17.2 8 18Z" fill={c1}/>
+      <path d="M10.2 0.3C9.7 0.0 9.1-0.1 8.6 0.1C8.1 0.2 7.6 0.5 7.2 1.0C6.9 1.5 6.8 2.0 6.7 2.6V3.2C6.8 3.6 6.8 4.0 6.8 4.5C7.0 6.1 7.7 7.8 8.9 9.0C10.1 10.2 11.7 11.0 13.3 11.3C13.9 11.4 14.4 11.4 14.9 11.5H15.5C16.1 11.5 16.7 11.4 17.2 11.1C17.6 10.8 18.0 10.3 18.1 9.7C18.3 9.2 18.2 8.6 17.9 8.1C17.0 6.0 14.0 6.8 12.7 5.3C11.5 3.7 11.8 1.1 10.2 0.3Z" fill={c2}/>
+      <path d="M18 10.2C18.3 9.7 18.4 9.2 18.2 8.6C18.1 8.1 17.8 7.6 17.3 7.3C16.8 6.9 16.3 6.8 15.7 6.8H15.1C14.7 6.8 14.3 6.8 13.9 6.8C12.2 7.0 10.6 7.7 9.4 8.9C8.1 10.1 7.3 11.7 7.0 13.4C7.0 13.9 6.9 14.5 6.9 15.0V15.6C6.8 16.1 7.0 16.7 7.3 17.2C7.6 17.7 8.1 18.1 8.6 18.2C9.2 18.4 9.7 18.3 10.2 18.0C12.3 17.0 11.5 14.0 13.0 12.8C14.6 11.6 17.2 11.8 18 10.2Z" fill={c3}/>
+      <path d="M0.3 8.1C0.0 8.6-0.1 9.1 0.1 9.7C0.2 10.2 0.5 10.7 1.0 11.0C1.5 11.4 2.0 11.5 2.6 11.5H3.2C3.6 11.5 4.0 11.5 4.4 11.5C6.1 11.3 7.7 10.5 8.9 9.4C10.2 8.2 11.0 6.6 11.2 4.9C11.3 4.4 11.4 3.8 11.4 3.3V2.7C11.4 2.1 11.3 1.6 11.0 1.1C10.7 0.6 10.2 0.2 9.7 0.1C9.1-0.1 8.5 0.0 8.0 0.3C6.0 1.2 6.8 4.3 5.3 5.5C3.7 6.7 1.1 6.5 0.3 8.1Z" fill={c4}/>
+    </svg>
+  );
+};
 
 /* Nav items — NO monday logo in the rail, just the nav icons */
 interface NavDef { id: string; src?: string; label: string; dividerAfter?: boolean; custom?: boolean }
@@ -63,34 +69,35 @@ export function AICentricIconRail({ animate = false, activeItem = 'workspace', o
                 aria-label={item.label.replace('\n', ' ')}
                 onClick={() => onNavClick?.(item.id)}
                 style={{
-                  width: 36, height: 32, borderRadius: 6, border: 'none',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  cursor: 'pointer', position: 'relative', padding: 0,
+                  width: 40, borderRadius: 8, border: 'none',
+                  display: 'flex', flexDirection: 'column', alignItems: 'center',
+                  justifyContent: 'center', gap: 1,
+                  cursor: 'pointer', position: 'relative',
+                  padding: '6px 0 4px',
                   background: isActive ? '#DCE9FC' : 'transparent',
                 }}
               >
                 {isActive && (
                   <div style={{
-                    position: 'absolute', left: -6, top: '50%', transform: 'translateY(-50%)',
-                    width: 3, height: 16, borderRadius: '0 2px 2px 0',
+                    position: 'absolute', left: -4, top: '50%', transform: 'translateY(-50%)',
+                    width: 3, height: 20, borderRadius: '0 2px 2px 0',
                     background: '#0073EA',
                   }} />
                 )}
                 {item.custom ? (
-                  <SidekickPinwheel size={18} />
+                  <SidekickPinwheel size={18} active={isActive} />
                 ) : (
                   <img src={item.src} width={18} height={18} alt="" style={{ filter: isActive ? activeFilter : 'none', opacity: isActive ? 1 : 0.65 }} />
                 )}
+                <span style={{
+                  fontSize: 9, fontFamily: ff, lineHeight: '11px',
+                  color: isActive ? '#0073EA' : '#676879',
+                  fontWeight: isActive ? 600 : 400,
+                  textAlign: 'center', whiteSpace: 'pre-line',
+                }}>
+                  {item.label}
+                </span>
               </button>
-              <span style={{
-                fontSize: 9, fontFamily: ff, lineHeight: '11px',
-                color: isActive ? '#0073EA' : '#676879',
-                fontWeight: isActive ? 600 : 400,
-                textAlign: 'center', whiteSpace: 'pre-line',
-                marginTop: 1, marginBottom: item.dividerAfter ? 0 : 2,
-              }}>
-                {item.label}
-              </span>
               {item.dividerAfter && <div style={{ width: 24, height: 1, background: '#E7E9EF', margin: '6px 0' }} />}
             </W>
           );
