@@ -194,7 +194,7 @@ export function AICentricTopBar({ userName, userColor = '#9D50DD' }: { userName?
 
       {/* Center — search bar */}
       <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#F5F6F8', borderRadius: 6, padding: '6px 16px', width: 400, maxWidth: '50%' }}>
+        <div style={{ display: 'flex', width: 400, height: 32, padding: '4px 4px 4px 16px', alignItems: 'center', gap: 8, borderRadius: 100, background: 'var(--primary-background-hover-color)' }}>
           <img src={iconSearch} width={14} height={14} alt="" style={{ opacity: 0.4 }} />
           <span style={{ fontSize: 13, color: '#676879', fontFamily: ff }}>Search or ask anything...</span>
         </div>
