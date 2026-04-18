@@ -91,7 +91,7 @@ export function TransitionPage() {
   const [step, setStep] = useState<Step>(1);
   const [nameInput, setNameInput] = useState('Sidekick');
   const [sidekickName, setSidekickName] = useState('');
-  const [selectedAvatar, setSelectedAvatar] = useState(AVATAR_OPTS[0]);
+  const [selectedAvatar, setSelectedAvatar] = useState<typeof AVATAR_OPTS[0] | null>(null);
   const [uploadedSrc, setUploadedSrc] = useState<string | null>(null);
   const [transitioning, setTransitioning] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -144,8 +144,8 @@ export function TransitionPage() {
   const streamCount = [s1m1, s1m2, s1m3, s2m1, s3m1, s3m2].reduce((n, s) => n + s.displayed.split(' ').length, 0);
   useEffect(() => { if (streamCount > 0 && streamCount % 4 === 0) bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' }); }, [streamCount]);
 
-  const avatarBg = selectedAvatar?.bg || AVATAR_OPTS[0].bg;
-  const avatarEmoji = selectedAvatar?.emoji || AVATAR_OPTS[0].emoji;
+  const avatarBg = selectedAvatar?.bg || '';
+  const avatarEmoji = selectedAvatar?.emoji || '';
 
   return (
     <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden', fontFamily: ff, background: '#fff' }}>
@@ -176,7 +176,7 @@ export function TransitionPage() {
                 key={step > 2 ? selectedAvatar.id : 'default'}
                 initial={{ scale: 0.9 }} animate={{ scale: 1 }}
                 transition={{ type: 'spring', stiffness: 300 }}>
-                {step > 2 && (selectedAvatar?.emoji || uploadedSrc) ? (
+                {selectedAvatar && (selectedAvatar.emoji || uploadedSrc) ? (
                   /* After avatar is chosen — show it with gradient ring */
                   <div style={{ width: 80, height: 80, borderRadius: '50%', padding: 3, background: SIDEKICK_GRADIENT, animation: 'rotateGradient 20s linear infinite', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ width: '100%', height: '100%', borderRadius: '50%', background: avatarBg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 34, overflow: 'hidden' }}>
@@ -244,7 +244,7 @@ export function TransitionPage() {
                               <button key={opt.id} onClick={() => setSelectedAvatar(opt)} title={opt.label}
                                 style={{
                                   width: 64, height: 64, borderRadius: 16, padding: 3,
-                                  border: `2px solid ${isSelected ? '#0073EA' : '#C3C6D4'}`,
+                                  border: `2px solid ${isSelected ? '#0073EA' : '#E7E9EF'}`,
                                   background: isSelected ? '#EDF1FC' : '#F5F6F8',
                                   cursor: 'pointer', overflow: 'hidden',
                                   display: 'flex', alignItems: 'center', justifyContent: 'center',
