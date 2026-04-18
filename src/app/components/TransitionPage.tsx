@@ -137,7 +137,7 @@ export function TransitionPage() {
 
   useEffect(() => {
     if (transitioning) {
-      const t = setTimeout(() => { localStorage.setItem('onboarding_complete', 'true'); navigate('/platform'); }, 1800);
+      const t = setTimeout(() => navigate('/platform?welcome=true'), 1800);
       return () => clearTimeout(t);
     }
   }, [transitioning, navigate]);

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { AICentricIconRail, AICentricTopBar } from './AICentricNav';
 import { SidekickPanel, SKMessageData } from './SidekickPanel';
@@ -19,22 +20,22 @@ export function PlatformShell() {
   const [welcomeMessages, setWelcomeMessages] = useState<SKMessageData[]>([]);
   const panelRef = useRef<HTMLDivElement>(null);
   const hasShownWelcome = useRef(false);
+  const [searchParams] = useSearchParams();
 
   const skName = localStorage.getItem('sidekick_name') || 'Sidekick';
 
   const [streamingText, setStreamingText] = useState('');
   const [streamDone, setStreamDone] = useState(false);
 
-  const fullWelcomeText = `Welcome to your new workspace, ${PERSONA.firstName}! I can see your Recruitment Pipeline has 8 new candidates waiting to be screened. I've already set up three AI agents for your hiring workflow — a Screening Agent, Scheduling Agent, and Sourcing Agent. Want me to run the Screening Agent on those candidates?`;
+  const fullWelcomeText = `Welcome to your new workspace, ${PERSONA.firstName}! I can see your Recruitment Pipeline has 8 new candidates waiting to be screened. I've set up three AI agents for your hiring workflow. Want me to run the Screening Agent right now?`;
 
   // Auto-open Sidekick on first arrival from onboarding
   useEffect(() => {
     if (hasShownWelcome.current) return;
 
-    const fromOnboarding = localStorage.getItem('onboarding_complete') === 'true';
+    const fromOnboarding = searchParams.get('welcome') === 'true';
     if (fromOnboarding) {
       hasShownWelcome.current = true;
-      localStorage.removeItem('onboarding_complete');
 
       // Open Sidekick panel after a brief moment
       setTimeout(() => setSidekickOpen(true), 600);
@@ -52,21 +53,20 @@ export function PlatformShell() {
               setWelcomeMessages([{
                 type: 'sidekick',
                 text: fullWelcomeText,
-                thinking: 'Analyzing workspace context: Recruitment Pipeline active, 8 new candidates in queue, 3 agents configured and ready.',
+                thinking: 'Analyzing workspace: Recruitment Pipeline has 8 unscreened candidates. 3 overdue (Maya Ben-Ari since Apr 10, Liam Foster since Apr 11, Priya Kapoor since Apr 12). Screening Agent configured with role-matching criteria. Ready to score and assign.',
+                heading: 'Your AI Agents',
                 contentCard: {
-                  title: "What's ready for you",
+                  title: 'Ready to work',
                   items: [
-                    { label: 'Your boards and documents — all migrated', color: 'var(--color-success)' },
-                    { label: 'Screening Agent — ready to run', color: 'var(--agent-screening)' },
-                    { label: 'Scheduling Agent — ready to run', color: 'var(--agent-scheduling)' },
-                    { label: 'Sourcing Agent — ready to run', color: 'var(--agent-sourcing)' },
+                    { label: 'Screening Agent — score candidates against job requirements', color: '#00C875' },
+                    { label: 'Scheduling Agent — auto-book interviews', color: '#579BFC' },
+                    { label: 'Sourcing Agent — find and rank talent', color: '#FDAB3D' },
                   ],
                 },
                 actions: [
                   { label: 'Run Screening Agent on 8 new candidates' },
-                  { label: 'Explore your AI agents' },
-                  { label: 'Browse your workspace' },
-                  { label: 'Dismiss', terminal: true },
+                  { label: 'Explore all agents' },
+                  { label: 'Maybe later', terminal: true },
                 ],
               }]);
               setStreamDone(true);
