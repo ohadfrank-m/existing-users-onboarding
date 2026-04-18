@@ -23,7 +23,7 @@ export function FavoritesPage() {
   return (
     <>
       {/* Sidebar — matching FavoritesHome.png */}
-      <div style={{ width: 296, display: 'flex', alignSelf: 'stretch', background: 'var(--primary-background-color)', borderRadius: '16px 0 0 0', padding: '12px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0 }}>
+      <div style={{ width: 296, display: 'flex', alignSelf: 'stretch', background: 'var(--chrome-surface-color)', borderRadius: '16px 0 0 0', padding: '12px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0 }}>
         <div style={{ padding: '0 12px', marginBottom: 10 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
             <span style={{ fontSize: 11, fontWeight: 600, color: '#676879', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Favorites</span>

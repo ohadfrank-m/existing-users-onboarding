@@ -31,7 +31,7 @@ export function PlatformShell() {
       width: '100vw', height: '100vh',
       display: 'flex', flexDirection: 'column',
       overflow: 'hidden', fontFamily: 'Figtree, sans-serif',
-      background: 'var(--primary-background-color)',
+      background: 'var(--chrome-surface-color)',
     }}>
       {/* Top bar */}
       <AICentricTopBar

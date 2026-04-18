@@ -18,7 +18,7 @@ export function WorkSpacePage() {
   return (
     <>
       {/* Sidebar */}
-      <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', background: 'var(--primary-background-color)', overflow: 'hidden', fontFamily: ff, flexShrink: 0 }}>
+      <div style={{ width: 296, display: 'flex', padding: '16px 20px', flexDirection: 'column', alignItems: 'flex-start', gap: 24, alignSelf: 'stretch', borderRadius: '16px 0 0 0', background: 'var(--chrome-surface-color)', overflow: 'hidden', fontFamily: ff, flexShrink: 0 }}>
 
         {/* Workspace dropdown + add button */}
         <div style={{ width: '100%' }}>
@@ -54,7 +54,7 @@ export function WorkSpacePage() {
             {/* Avatar stack — right-aligned */}
             <div style={{ display: 'flex', alignItems: 'center' }}>
               {PERSONA.teamMembers.slice(0, 3).map((tm, i) => (
-                <div key={tm.initials} style={{ width: 22, height: 22, borderRadius: '50%', background: tm.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 700, color: '#fff', marginLeft: i > 0 ? -5 : 0, border: '2px solid var(--primary-background-color)', zIndex: 3 - i }}>{tm.initials}</div>
+                <div key={tm.initials} style={{ width: 22, height: 22, borderRadius: '50%', background: tm.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 700, color: '#fff', marginLeft: i > 0 ? -5 : 0, border: '2px solid var(--chrome-surface-color)', zIndex: 3 - i }}>{tm.initials}</div>
               ))}
               <span style={{ fontSize: 11, color: '#676879', marginLeft: 4 }}>+3</span>
             </div>
