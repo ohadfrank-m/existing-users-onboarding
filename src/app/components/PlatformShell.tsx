@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router';
 import { AICentricIconRail, AICentricTopBar } from './AICentricNav';
+import { SidekickPanel, SKMessageData } from './SidekickPanel';
 import { WorkSpacePage } from './pages/WorkSpacePage';
 import { SidekickPage } from './pages/SidekickPage';
 import { FavoritesPage } from './pages/FavoritesPage';
@@ -13,11 +15,65 @@ type NavId = 'workspace' | 'sidekick' | 'favorites' | 'agents' | 'apps' | 'notet
 
 export function PlatformShell() {
   const [activeNav, setActiveNav] = useState<NavId>('workspace');
+  const [sidekickOpen, setSidekickOpen] = useState(false);
+  const [welcomeMessages, setWelcomeMessages] = useState<SKMessageData[]>([]);
+  const [searchParams] = useSearchParams();
+  const panelRef = useRef<HTMLDivElement>(null);
+  const hasShownWelcome = useRef(false);
+
+  const skName = localStorage.getItem('sidekick_name') || 'Sidekick';
+
+  // Auto-open Sidekick on first arrival from onboarding
+  useEffect(() => {
+    if (hasShownWelcome.current) return;
+
+    // Check if user just came from onboarding (flag set by TransitionPage)
+    const fromOnboarding = localStorage.getItem('onboarding_complete') === 'true';
+    if (fromOnboarding) {
+      hasShownWelcome.current = true;
+      localStorage.removeItem('onboarding_complete');
+      setSidekickOpen(true);
+
+      // Stream welcome messages with delays
+      const msgs: SKMessageData[] = [];
+
+      setTimeout(() => {
+        msgs.push({
+          type: 'sidekick',
+          text: `Welcome to your new workspace, ${PERSONA.firstName}! Everything is set up and ready to go.`,
+          thinking: 'Analyzing workspace context: Recruitment Pipeline active, 8 new candidates in queue, 3 agents configured and ready.',
+          contentCard: {
+            title: "What's ready for you",
+            items: [
+              { label: 'Your boards and documents — all migrated', color: 'var(--color-success)' },
+              { label: 'Screening Agent — ready to run', color: 'var(--agent-screening)' },
+              { label: 'Scheduling Agent — ready to run', color: 'var(--agent-scheduling)' },
+              { label: 'Sourcing Agent — ready to run', color: 'var(--agent-sourcing)' },
+            ],
+          },
+          actions: [
+            { label: 'Run Screening Agent on 8 new candidates' },
+            { label: 'Explore your AI agents' },
+            { label: 'Browse your workspace' },
+            { label: 'Dismiss', terminal: true },
+          ],
+        });
+        setWelcomeMessages([...msgs]);
+      }, 800);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (panelRef.current) {
+      panelRef.current.scrollTo({ top: panelRef.current.scrollHeight, behavior: 'smooth' });
+    }
+  }, [welcomeMessages]);
 
   const renderPage = () => {
+    // If Sidekick nav is active, show the Sidekick home page without the panel
+    if (activeNav === 'sidekick') return <SidekickPage />;
     switch (activeNav) {
       case 'workspace': return <WorkSpacePage />;
-      case 'sidekick': return <SidekickPage />;
       case 'favorites': return <FavoritesPage />;
       case 'agents': return <AgentsPage />;
       case 'apps': return <AppsPage />;
@@ -30,8 +86,8 @@ export function PlatformShell() {
     <div style={{
       width: '100vw', height: '100vh',
       display: 'flex', flexDirection: 'column',
-      overflow: 'hidden', fontFamily: 'Figtree, sans-serif',
-      background: 'var(--chrome-surface-color)',
+      overflow: 'hidden', fontFamily: 'var(--font-body)',
+      background: 'var(--surface-chrome)',
     }}>
       {/* Top bar */}
       <AICentricTopBar
@@ -39,15 +95,42 @@ export function PlatformShell() {
         userColor={PERSONA.teamMembers[0].color}
       />
 
-      {/* Body: icon rail + page content */}
+      {/* Body: icon rail + page content + optional Sidekick panel */}
       <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
-        {/* Icon rail — always visible, clickable */}
         <AICentricIconRail activeItem={activeNav} onNavClick={(id) => setActiveNav(id as NavId)} />
 
-        {/* Page content — each page renders its own sidebar + main area */}
+        {/* Page content */}
         <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
           {renderPage()}
         </div>
+
+        {/* Sidekick panel — slides in when open, not on Sidekick home page */}
+        {sidekickOpen && activeNav !== 'sidekick' && (
+          <SidekickPanel
+            name={skName}
+            scope="Recruitment Pipeline"
+            messages={welcomeMessages}
+            userInitials={PERSONA.teamMembers[0].initials}
+            userColor={PERSONA.teamMembers[0].color}
+            showGradientBorder
+            panelRef={panelRef}
+          >
+            {/* Close button area */}
+            <div style={{ padding: '0 var(--space-14)', marginBottom: 'var(--space-8)' }}>
+              <button onClick={() => setSidekickOpen(false)}
+                style={{
+                  width: '100%', padding: 'var(--space-8)',
+                  background: 'var(--surface-card-muted)',
+                  border: 'none', borderRadius: 'var(--radius-md)',
+                  fontSize: 'var(--font-size-sm)',
+                  color: 'var(--text-secondary)',
+                  cursor: 'pointer', fontFamily: 'var(--font-body)',
+                }}>
+                Close panel
+              </button>
+            </div>
+          </SidekickPanel>
+        )}
       </div>
     </div>
   );

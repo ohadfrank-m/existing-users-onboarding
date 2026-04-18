@@ -159,7 +159,7 @@ export function TransitionPage() {
 
   useEffect(() => {
     if (step === 3 && s3m2.done) {
-      const t = setTimeout(() => navigate('/platform'), 2000);
+      const t = setTimeout(() => { localStorage.setItem('onboarding_complete', 'true'); navigate('/platform'); }, 2000);
       return () => clearTimeout(t);
     }
   }, [step, s3m2.done, navigate]);
