@@ -178,13 +178,17 @@ export function PlatformShell() {
           {renderPage()}
         </motion.div>
 
-        {/* Sidekick panel — slides in first, always visible during welcome */}
+        {/* Sidekick panel — fixed right side, full height, always visible during welcome */}
         {sidekickOpen && activeNav !== 'sidekick' && (
           <motion.div
             initial={isWelcome ? { x: 360, opacity: 0 } : false}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            style={{ flexShrink: 0, overflow: 'hidden' }}
+            style={{
+              position: 'fixed', top: 0, right: 0, bottom: 0,
+              width: 340, zIndex: 50,
+              overflow: 'hidden',
+            }}
           >
             <SidekickPanel
               name={skName}
