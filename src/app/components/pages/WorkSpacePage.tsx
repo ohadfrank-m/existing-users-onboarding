@@ -9,7 +9,7 @@ export function WorkSpacePage() {
   return (
     <>
       {/* Sidebar — workspace structure matching Workstream.png */}
-      <div style={{ width: 220, height: '100%', background: '#fff', borderRight: '1px solid #D0D4E4', padding: '12px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0, overflow: 'hidden' }}>
+      <div style={{ width: 220, height: '100%', background: 'var(--primary-background-hover-color)', padding: '12px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0, overflow: 'hidden' }}>
         <div style={{ padding: '0 12px', marginBottom: 10 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
             <span style={{ fontSize: 11, fontWeight: 600, color: '#676879', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Workspace</span>
@@ -80,7 +80,7 @@ export function WorkSpacePage() {
       </div>
 
       {/* Main content — DOCUMENT VIEW (not board) matching Workstream.png */}
-      <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, border: '0.5px solid #D0D4E4', boxShadow: '0 4px 32px rgba(0,19,85,0.06)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
         {/* Doc toolbar — matching reference */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 2, padding: '6px 20px', borderBottom: '1px solid #E7E9EF', flexShrink: 0 }}>
           {/* Add button */}

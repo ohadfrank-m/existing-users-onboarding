@@ -23,7 +23,7 @@ export function FavoritesPage() {
   return (
     <>
       {/* Sidebar — matching FavoritesHome.png */}
-      <div style={{ width: 220, height: '100%', background: '#fff', borderRight: '1px solid #D0D4E4', padding: '12px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0 }}>
+      <div style={{ width: 220, height: '100%', background: 'var(--primary-background-hover-color)', padding: '12px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0 }}>
         <div style={{ padding: '0 12px', marginBottom: 10 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
             <span style={{ fontSize: 11, fontWeight: 600, color: '#676879', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Favorites</span>
@@ -78,7 +78,7 @@ export function FavoritesPage() {
       </div>
 
       {/* Main content — same doc view as workspace */}
-      <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, border: '0.5px solid #D0D4E4', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
         <div style={{ flex: 1, overflowY: 'auto', padding: '0 0 40px' }}>
           <div style={{ width: '100%', height: 200, background: 'linear-gradient(135deg, #FFF3E0, #FFE0B2)' }} />
           <div style={{ maxWidth: 720, margin: '0 auto', padding: '32px 40px' }}>

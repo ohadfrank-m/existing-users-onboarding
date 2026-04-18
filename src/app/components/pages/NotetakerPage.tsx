@@ -21,7 +21,7 @@ const MEETINGS = [
 
 export function NotetakerPage() {
   return (
-    <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, border: '0.5px solid var(--layout-border-color)', display: 'flex', flexDirection: 'column', overflow: 'hidden', fontFamily: ff }}>
+    <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, display: 'flex', flexDirection: 'column', overflow: 'hidden', fontFamily: ff }}>
       {/* Header */}
       <div style={{ padding: '20px 32px 0' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>

@@ -40,7 +40,7 @@ export function SidekickPage() {
   return (
     <>
       {/* Sidebar */}
-      <div style={{ width: 220, height: '100%', background: '#fff', borderRight: '1px solid #D0D4E4', padding: '12px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0 }}>
+      <div style={{ width: 220, height: '100%', background: 'var(--primary-background-hover-color)', padding: '12px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0 }}>
         <div style={{ padding: '0 12px', marginBottom: 12 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
             <span style={{ fontSize: 11, fontWeight: 600, color: '#676879', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Sidekick</span>
@@ -77,7 +77,7 @@ export function SidekickPage() {
       </div>
 
       {/* Main content */}
-      <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, border: '0.5px solid #D0D4E4', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'auto', padding: '32px 24px' }}>
+      <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'auto', padding: '32px 24px' }}>
         {/* Logo + greeting */}
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
           <img src={iconMondayLogo} width={32} height={32} alt="" style={{ marginBottom: 6 }} />

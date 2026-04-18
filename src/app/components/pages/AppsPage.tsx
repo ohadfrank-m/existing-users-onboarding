@@ -14,7 +14,7 @@ export function AppsPage() {
   return (
     <>
       {/* Sidebar */}
-      <div style={{ width: 230, height: '100%', background: '#fff', borderRight: '1px solid var(--layout-border-color)', padding: '10px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0 }}>
+      <div style={{ width: 230, height: '100%', background: 'var(--primary-background-hover-color)', padding: '10px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0 }}>
         <div style={{ padding: '0 14px', marginBottom: 12 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
             <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--secondary-text-color)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>Vibe Apps</span>
@@ -32,7 +32,7 @@ export function AppsPage() {
       </div>
 
       {/* Main content */}
-      <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, border: '0.5px solid var(--layout-border-color)', display: 'flex', flexDirection: 'column', alignItems: 'center', overflow: 'auto', padding: '48px 24px' }}>
+      <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow: 'auto', padding: '48px 24px' }}>
         <h1 style={{ fontFamily: 'Poppins, sans-serif', fontSize: 30, fontWeight: 600, margin: '0 0 4px', textAlign: 'center' }}>
           Build your ideas with <span style={{ background: 'linear-gradient(90deg, #FB275D, #FFCC00, #00CA72, #8181FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Vibe</span>
         </h1>

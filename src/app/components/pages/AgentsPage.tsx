@@ -15,7 +15,7 @@ export function AgentsPage() {
   return (
     <>
       {/* Sidebar — matching AgentsHome.png */}
-      <div style={{ width: 220, height: '100%', background: '#fff', borderRight: '1px solid #D0D4E4', padding: '12px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0 }}>
+      <div style={{ width: 220, height: '100%', background: 'var(--primary-background-hover-color)', padding: '12px 0', display: 'flex', flexDirection: 'column', fontFamily: ff, flexShrink: 0 }}>
         <div style={{ padding: '0 12px', marginBottom: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
             <span style={{ fontSize: 11, fontWeight: 600, color: '#676879', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Agents</span>
@@ -63,7 +63,7 @@ export function AgentsPage() {
       </div>
 
       {/* Main content — matching AgentsHome.png */}
-      <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, border: '0.5px solid #D0D4E4', display: 'flex', flexDirection: 'column', alignItems: 'center', overflow: 'auto', padding: '40px 24px' }}>
+      <div style={{ flex: 1, background: '#fff', borderTopLeftRadius: 16, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow: 'auto', padding: '40px 24px' }}>
         {/* Start from blank link */}
         <div style={{ width: '100%', maxWidth: 560, display: 'flex', justifyContent: 'flex-end', marginBottom: 8 }}>
           <span style={{ fontSize: 12, color: '#0073EA', cursor: 'pointer' }}>Start from blank</span>
